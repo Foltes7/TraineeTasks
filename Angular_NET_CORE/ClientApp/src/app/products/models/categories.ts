@@ -1,3 +1,7 @@
 export enum Categories{
-    Food = 'Food'
+    Food = 'Food',
+    Cloth = 'Cloth',
+    Book = 'Book',
+    Electronic = 'Electronic ',
+    Toys = 'Toys '
 }
