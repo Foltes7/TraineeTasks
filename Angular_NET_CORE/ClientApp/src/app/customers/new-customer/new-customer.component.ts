@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,15 +22,15 @@ export class NewCustomerComponent implements OnInit {
      this.date?.setValue(today);
   }
 
-  get date()
+  get date(): AbstractControl
   {
     return this.mainForm.get('date');
   }
-  get name() {
+  get name(): AbstractControl{
     return this.mainForm.get('name');
   }
 
-  get address() {
+  get address(): AbstractControl {
     return this.mainForm.get('address');
   }
 
@@ -39,7 +39,7 @@ export class NewCustomerComponent implements OnInit {
     this.router.navigate(['customers']);
   }
 
-  createNewCustomer()
+  createNewCustomer(): void
   {
     console.log(this.mainForm.value);
   }

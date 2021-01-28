@@ -15,12 +15,12 @@ export class NewProductComponent implements OnInit {
 
   }
 
-  cancelHandler()
+  cancelHandler(): void
   {
     this.router.navigate(['products']);
   }
 
-  saveFormHandler(product: Product)
+  saveFormHandler(product: Product): void
   {
     console.log(product);
   }

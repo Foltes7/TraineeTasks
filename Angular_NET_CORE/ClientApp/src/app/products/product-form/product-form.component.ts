@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Categories } from '../models/categories';
 import { Product } from '../models/product';
@@ -47,27 +47,27 @@ export class ProductFormComponent implements OnInit {
     this.sizes = Object.keys(Size).filter(String);
   }
 
-  get price()
+  get price(): AbstractControl
   {
     return this.mainForm.get('price');
   }
 
-  get quantity()
+  get quantity(): AbstractControl
   {
     return this.mainForm.get('quantity');
   }
 
-  get date()
+  get date(): AbstractControl
   {
     return this.mainForm.get('date');
   }
 
-  get productName()
+  get productName(): AbstractControl
   {
     return this.mainForm.get('productName');
   }
 
-  get description()
+  get description(): AbstractControl
   {
     return this.mainForm.get('description');
   }

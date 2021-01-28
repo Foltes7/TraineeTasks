@@ -20,12 +20,12 @@ export class ProductViewDetailsComponent implements OnInit {
     this.editable = true;
   }
 
-  cancelHandler()
+  cancelHandler(): void
   {
     this.editable = false;
   }
 
-  saveFormHandler(product: Product)
+  saveFormHandler(product: Product): void
   {
     console.log(product);
   }

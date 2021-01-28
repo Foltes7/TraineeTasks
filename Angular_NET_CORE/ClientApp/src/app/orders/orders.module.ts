@@ -6,11 +6,12 @@ import { ProductToOrderComponent } from './product-to-order/product-to-order.com
 import { OrderViewDetailsComponent } from './order-view-details/order-view-details.component';
 import { OrdersRouting } from './orders-routing';
 import { SharedModule } from '../shared/shared.module';
+import { OrderFormComponent } from './order-form/order-form.component';
 
 
 
 @NgModule({
-  declarations: [OrdersListComponent, NewOrderComponent, ProductToOrderComponent, OrderViewDetailsComponent],
+  declarations: [OrdersListComponent, NewOrderComponent, ProductToOrderComponent, OrderViewDetailsComponent, OrderFormComponent],
   imports: [
     CommonModule,
     OrdersRouting,

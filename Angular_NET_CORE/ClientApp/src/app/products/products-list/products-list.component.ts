@@ -43,7 +43,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  delete(id: number)
+  delete(id: number): void
   {
     const dialogRef = this.dialog.open(ConfirmationDeleteWindowComponent, {});
 
