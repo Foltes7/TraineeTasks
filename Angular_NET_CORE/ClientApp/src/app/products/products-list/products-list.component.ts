@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { ConfirmationDeleteWindowComponent } from 'src/app/shared/confirmation-delete-window/confirmation-delete-window.component';
 import { Categories } from '../models/categories';
 import { Product } from '../models/product';
 import { Size } from '../models/size';
+import { takeUntil } from 'rxjs/operators';
 
 const ELEMENT_DATA: Product[] = [
   {id: 1, name: 'Hydrogen', price: 1.0079, quantity: 2, size: Size.Small, category: Categories.Food  },
@@ -21,14 +25,36 @@ const ELEMENT_DATA: Product[] = [
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss']
 })
-export class ProductsListComponent implements OnInit {
+export class ProductsListComponent implements OnInit, OnDestroy {
+
+  destroy = new Subject<void>();
 
   displayedColumns: string[] = ['id', 'name', 'category', 'size', 'quantity', 'price', 'action'];
   dataSource = ELEMENT_DATA;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
+  }
 
   ngOnInit(): void {
+  }
+
+  delete(id: number)
+  {
+    const dialogRef = this.dialog.open(ConfirmationDeleteWindowComponent, {});
+
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy))
+    .subscribe((result: boolean) => {
+      if (result)
+      {
+        this.dataSource = this.dataSource.filter(z => z.id !== id);
+      }
+    });
   }
 
 }
