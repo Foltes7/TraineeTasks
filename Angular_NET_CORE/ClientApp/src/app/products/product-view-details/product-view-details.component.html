@@ -2,8 +2,8 @@
     <div class="content-container">
         <div class="sub-header">
             <p class="title">View Product</p>
-            <button mat-stroked-button color="primary" routerLink="new">Edit</button>
+            <button *ngIf="!editable" mat-stroked-button color="primary" (click)="setEditableTrue()">Edit</button>
         </div>
-        <app-product-form></app-product-form>
+        <app-product-form (cancelEvent)="cancelHandler()" (saveEvent)="saveFormHandler($event)" [editable]="editable"></app-product-form>
     </div>
 </div>

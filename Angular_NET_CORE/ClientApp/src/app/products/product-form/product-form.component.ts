@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Categories } from '../models/categories';
+import { Product } from '../models/product';
+import { Size } from '../models/size';
 
 @Component({
   selector: 'app-product-form',
@@ -10,9 +12,20 @@ import { Categories } from '../models/categories';
 })
 export class ProductFormComponent implements OnInit {
 
+  @Output()
+  cancelEvent = new EventEmitter<void>();
+
+  @Output()
+  saveEvent = new EventEmitter<Product>();
+
+  @Input()
+  editable: boolean;
+
   categoriesEnum = Categories;
   categories: string[] = [];
 
+  sizeEnum = Size;
+  sizes: string[] = [];
 
   public mainForm: FormGroup = new FormGroup({
     productNumber: new FormControl(''),
@@ -21,15 +34,17 @@ export class ProductFormComponent implements OnInit {
     quantity: new FormControl('', [Validators.required, Validators.min(0)]),
     price: new FormControl('', [Validators.required, Validators.min(0) ]),
     productType: new FormControl('', [Validators.required]),
+    size: new FormControl('', [Validators.required]),
     date: new FormControl('',  [Validators.required]),
   });
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
     this.date?.setValue(today);
     this.categories = Object.keys(Categories).filter(String);
+    this.sizes = Object.keys(Size).filter(String);
   }
 
   get price()
@@ -57,15 +72,29 @@ export class ProductFormComponent implements OnInit {
     return this.mainForm.get('description');
   }
 
-  goBack(): void
+  cancelHandler(): void
   {
-    this.router.navigate(['products']);
+    this.cancelEvent.emit();
   }
 
-  saveForm()
+  saveForm(): void
   {
-    console.log(this.mainForm.value);
+    this.saveEvent.emit(this.getProductFromForm());
   }
 
+  getProductFromForm(): Product
+  {
+    const form = this.mainForm.value;
+    const obj: Product = {
+      id: form.id,
+      name: form.productName,
+      category: form.productType,
+      size: form.size,
+      quantity: form.quantity,
+      price: form.price,
+      createdAt: new Date()
+    };
+    return obj;
+  }
 
 }
