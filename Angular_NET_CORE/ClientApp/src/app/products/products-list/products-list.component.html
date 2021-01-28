@@ -8,7 +8,7 @@
 
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Product Id</th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <td mat-cell *matCellDef="let element" [routerLink]="[element.id]" class="id-cell"> {{element.id}} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">

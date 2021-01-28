@@ -18,6 +18,13 @@
         table {
             margin-top: 15px;
             width: 100%;
-          }
+            .id-cell{
+                cursor: pointer;
+                outline: none;
+                &:hover{
+                    color: blue;
+                }
+            }
+        }
     }
 }
