@@ -1,6 +1,6 @@
 .header{
     width: 100%;
-    height: 70px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,11 +8,14 @@
 
     button{
         color: #727272;
-        width: 200px;
-        font-size: 1.125rem;
+        width: 160px;
+        height: 100%;
     }
 }
-
+.main-content{
+    height: calc(100% - 72px);
+    width: 100%;
+}
 .active{
     color: black !important;
 }

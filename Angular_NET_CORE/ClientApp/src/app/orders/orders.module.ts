@@ -5,6 +5,7 @@ import { NewOrderComponent } from './new-order/new-order.component';
 import { ProductToOrderComponent } from './product-to-order/product-to-order.component';
 import { OrderViewDetailsComponent } from './order-view-details/order-view-details.component';
 import { OrdersRouting } from './orders-routing';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -12,7 +13,8 @@ import { OrdersRouting } from './orders-routing';
   declarations: [OrdersListComponent, NewOrderComponent, ProductToOrderComponent, OrderViewDetailsComponent],
   imports: [
     CommonModule,
-    OrdersRouting
+    OrdersRouting,
+    SharedModule
   ]
 })
 export class OrdersModule { }
