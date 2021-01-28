@@ -1,1 +1,44 @@
-<p>new-customer works!</p>
+<div class="content">
+    <div class="content-container">
+        <div class="sub-header">
+            <p class="title">New Customer</p>
+        </div>
+        <form [formGroup]="mainForm" class="form">
+            <mat-form-field>
+                <mat-label>Created Date</mat-label>
+                <input matInput readonly placeholder="Date" type="date" name="date" formControlName="date">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Customer Name</mat-label>
+                <input matInput placeholder="Name" name="name" formControlName="name">
+                <mat-error *ngIf="name && name.errors?.minlength">
+                    Min length 4
+                </mat-error>
+                <mat-error *ngIf="name && name.errors?.maxlength">
+                    Max length 45
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="textarea-mr-t">
+                <mat-label>Address</mat-label>
+                <textarea matInput placeholder="Address" name="address" formControlName="address"></textarea>
+                <mat-error *ngIf="address && address.errors?.minlength">
+                    Min length 4
+                </mat-error>
+                <mat-error *ngIf="address && address.errors?.maxlength">
+                    Max length 45
+                </mat-error>
+            </mat-form-field>
+
+            <div class="buttons">
+                <button [disabled]="mainForm.invalid" mat-stroked-button (click)="createNewCustomer()">
+                    Save
+                </button>
+                <button mat-stroked-button (click)="goToCustomersPage()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
