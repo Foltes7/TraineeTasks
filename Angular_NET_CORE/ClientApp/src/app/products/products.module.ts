@@ -5,11 +5,12 @@ import { NewProductComponent } from './new-product/new-product.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
 import { ProductsRouting } from './products-routing';
 import { SharedModule } from '../shared/shared.module';
+import { ProductFormComponent } from './product-form/product-form.component';
 
 
 
 @NgModule({
-  declarations: [ProductsListComponent, NewProductComponent, ProductViewDetailsComponent],
+  declarations: [ProductsListComponent, NewProductComponent, ProductViewDetailsComponent, ProductFormComponent],
   imports: [
     CommonModule,
     ProductsRouting,
