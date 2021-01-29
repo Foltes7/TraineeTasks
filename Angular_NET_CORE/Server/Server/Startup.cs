@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Server.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,16 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials()
+                       .WithOrigins("http://localhost:4200", "http://localhost:8080");
+            }));
+
+            services.DataBase(Configuration);
+            services.BL(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,6 +55,7 @@ namespace Server
             }
 
             app.UseRouting();
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
