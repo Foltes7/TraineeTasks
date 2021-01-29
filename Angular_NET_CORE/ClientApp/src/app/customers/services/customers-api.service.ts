@@ -5,6 +5,7 @@ import { ResponseNewId } from 'src/app/shared/models/responseNewId';
 import { environment } from 'src/environments/environment';
 import { Customer } from '../models/customer';
 import { FullCustomer } from '../models/full-customer';
+import { NewCustomerCommand } from '../models/newCustomerCommand';
 
 @Injectable()
 export class CustomersApiService {
@@ -21,12 +22,8 @@ export class CustomersApiService {
     return this.httpClient.get<Customer[]>(environment.API + `/api/customers`);
   }
 
-  newCustomer(name: string, address: string): Observable<Customer>
+  newCustomer(command: NewCustomerCommand): Observable<Customer>
   {
-    const obj = {
-      name,
-      address
-    };
-    return this.httpClient.post<Customer>(environment.API + `/api/customers`, obj);
+    return this.httpClient.post<Customer>(environment.API + `/api/customers`, command);
   }
 }

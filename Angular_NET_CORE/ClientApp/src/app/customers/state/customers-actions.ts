@@ -1,3 +1,4 @@
+import { NewCustomerCommand } from '../models/newCustomerCommand';
 
 export class LoadCustomers {
     static type = '[Customers] Load All';
@@ -11,5 +12,5 @@ export class LoadFullCustomer {
 
 export class NewCustomer {
     static type = '[Customers] New';
-    constructor(public name: string, public address: string) {}
+    constructor(public command: NewCustomerCommand) {}
 }

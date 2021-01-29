@@ -56,9 +56,9 @@ export class CustomersStore {
     }
 
     @Action(NewCustomer)
-    async newCustomer({patchState, getState}: StateContext<CustomersState>, { name, address}: NewCustomer): Promise<void>
+    async newCustomer({patchState, getState}: StateContext<CustomersState>, { command}: NewCustomer): Promise<void>
     {
-        const customer = await this.customersService.newCustomer(name, address).toPromise();
+        const customer = await this.customersService.newCustomer(command).toPromise();
         patchState({
             customers: [customer, ...getState().customers]
         });

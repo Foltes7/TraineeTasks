@@ -46,7 +46,7 @@ export class NewCustomerComponent implements OnInit {
   {
     const name = this.mainForm.value.name;
     const address = this.mainForm.value.address;
-    this.store.dispatch(new NewCustomer(name, address))
+    this.store.dispatch(new NewCustomer({name, address}))
     .toPromise().then(x => this.router.navigate(['customers']));
   }
 
