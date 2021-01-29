@@ -1,5 +1,7 @@
 ﻿using BI.Interfaces;
 using Common.DB_MODELS;
+using Common.DTO.Categories;
+using Common.DTO.Sizes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,13 +29,13 @@ namespace Server.Controllers
         }
 
         [HttpGet("sizes")]
-        public async Task<IEnumerable<ProductSize>> GetSizes()
+        public async Task<IEnumerable<SizeDTO>> GetSizes()
         {
             return await this.sizesService.GetAll();
         }
 
         [HttpGet("categories")]
-        public async Task<IEnumerable<ProductCategory>> GetCagetories()
+        public async Task<IEnumerable<CategoryDTO>> GetCagetories()
         {
             return await this.categoriesService.GetAll();
         }

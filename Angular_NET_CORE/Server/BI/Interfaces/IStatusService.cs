@@ -1,4 +1,5 @@
 ﻿using Common.DB_MODELS;
+using Common.DTO.Status;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace BI.Interfaces
 {
     public interface IStatusService
     {
-        Task<IEnumerable<OrderStatus>> GetAll();
+        Task<IEnumerable<StatusDTO>> GetAll();
     }
 }

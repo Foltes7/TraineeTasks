@@ -1,4 +1,5 @@
 ﻿using Common.DB_MODELS;
+using Common.DTO.Sizes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace BI.Interfaces
 {
     public interface ISizesService
     {
-        Task<IEnumerable<ProductSize>> GetAll();
+        Task<IEnumerable<SizeDTO>> GetAll();
     }
 }

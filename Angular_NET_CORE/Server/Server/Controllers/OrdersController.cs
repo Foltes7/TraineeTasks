@@ -1,5 +1,6 @@
 ﻿using BI.Interfaces;
 using Common.DB_MODELS;
+using Common.DTO.Status;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,7 +23,7 @@ namespace Server.Controllers
         }
 
         [HttpGet("status")]
-        public async Task<IEnumerable<OrderStatus>> GetSizes()
+        public async Task<IEnumerable<StatusDTO>> GetSizes()
         {
             return await this.statusService.GetAll();
         }
