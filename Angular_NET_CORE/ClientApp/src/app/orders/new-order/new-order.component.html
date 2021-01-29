@@ -1,1 +1,8 @@
-<p>new-order works!</p>
+<div class="content">
+    <div class="content-container">
+        <div class="sub-header">
+            <p class="title">New Order</p>
+        </div>
+        <app-order-form (cancelEvent)="cancelHandler()" (saveEvent)="saveFormHandler($event)" [editable]="true"></app-order-form>
+    </div>
+</div>

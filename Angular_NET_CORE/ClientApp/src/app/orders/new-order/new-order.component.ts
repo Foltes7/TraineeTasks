@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Order } from '../models/orders';
 
 @Component({
   selector: 'app-new-order',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewOrderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  cancelHandler(): void
+  {
+    this.router.navigate(['orders']);
+  }
+
+  saveFormHandler(order: Order): void
+  {
+    console.log(order);
   }
 
 }

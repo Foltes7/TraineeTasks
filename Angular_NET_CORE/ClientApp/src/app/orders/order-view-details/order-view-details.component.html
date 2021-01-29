@@ -1,1 +1,9 @@
-<p>order-view-details works!</p>
+<div class="content">
+    <div class="content-container">
+        <div class="sub-header">
+            <p class="title">View Order</p>
+            <button *ngIf="!editable" mat-stroked-button color="primary" (click)="setEditableTrue()">Edit</button>
+        </div>
+        <app-order-form (cancelEvent)="cancelHandler()" (saveEvent)="saveFormHandler($event)" [editable]="editable"></app-order-form>
+    </div>
+</div>
