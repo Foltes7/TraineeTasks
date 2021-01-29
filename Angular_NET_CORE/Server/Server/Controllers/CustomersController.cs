@@ -31,7 +31,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponseNewId> CreateNewCustomer(NewCustomerCommand command)
+        public async Task<CustomerTableItem> CreateNewCustomer(NewCustomerCommand command)
         {
             return await this.customerService.CreateNewCustomer(command);
         }

@@ -10,6 +10,6 @@ namespace BI.Interfaces
     {
         Task<CustomerViewDetails> GetCustomer(int id);
         Task<IEnumerable<CustomerTableItem>> GetCustomers();
-        Task<ResponseNewId> CreateNewCustomer(NewCustomerCommand command);
+        Task<CustomerTableItem> CreateNewCustomer(NewCustomerCommand command);
     }
 }

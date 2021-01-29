@@ -1,8 +1,7 @@
 export interface Customer{
     id: number;
-    createdAt: Date;
-    customerName: string;
-    customerAddress: string;
+    name: string;
+    address: string;
     totalCost: number;
     ordersCount: number;
 }

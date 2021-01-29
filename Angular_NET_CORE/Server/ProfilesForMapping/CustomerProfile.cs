@@ -14,7 +14,6 @@ namespace ProfilesForMapping
         {
             CreateMap<NewCustomerCommand, Customer>()
                 .ForMember(dest => dest.Address, memb => memb.MapFrom(x => x.Address))
-                .ForMember(dest => dest.CreatedAt, memb => memb.MapFrom(x => x.CreatedAt))
                 .ForMember(dest => dest.Name, memb => memb.MapFrom(x => x.Name));
 
             CreateMap<Customer, CustomerViewDetails>()

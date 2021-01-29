@@ -17,7 +17,7 @@
         <mat-label>Select Customer</mat-label>
         <mat-select [disabled]="!editable"  name="customer" formControlName="customer">
             <mat-option *ngFor="let customer of customers" [value]="customer">
-            {{customer.customerName}}
+            {{customer.name}}
             </mat-option>
         </mat-select>
     </mat-form-field>

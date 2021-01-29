@@ -23,11 +23,12 @@ namespace BI.Services
             this.mapper = mapper;
         }
 
-        public async Task<ResponseNewId> CreateNewCustomer(NewCustomerCommand command)
+        public async Task<CustomerTableItem> CreateNewCustomer(NewCustomerCommand command)
         {
             var user = mapper.Map<Customer>(command);
+            user.CreatedAt = DateTime.Now;
             await this.customerRepository.Add(user);
-            return new ResponseNewId { Id = user.Id };
+            return mapper.Map<CustomerTableItem>(user);
         }
 
         public async Task<CustomerViewDetails> GetCustomer(int id)

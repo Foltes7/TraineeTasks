@@ -8,7 +8,6 @@ namespace Common.Commands
 {
     public class NewCustomerCommand
     {
-        public DateTime CreatedAt { set; get; }
         public string Name { set; get; }
         public string Address { set; get; }
     }
