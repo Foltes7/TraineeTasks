@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppContextDatabase))]
-    partial class AppContextDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210129164151_product-size-category")]
+    partial class productsizecategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,58 +58,14 @@ namespace DAL.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderStatusId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("OrderStatusId");
-
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Common.DB_MODELS.OrderStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrderStatuses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Status = "New"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Status = "Paid"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Status = "Shipped"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Status = "Delivered"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Status = "Closed"
-                        });
                 });
 
             modelBuilder.Entity("Common.DB_MODELS.Product", b =>
@@ -116,6 +74,9 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -126,20 +87,13 @@ namespace DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductSizeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("Size")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductCategoryId");
-
-                    b.HasIndex("ProductSizeId");
 
                     b.ToTable("Products");
                 });
@@ -154,36 +108,15 @@ namespace DAL.Migrations
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("ProductCategories");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Food"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Category = "Cloth"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Category = "Book"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Category = "Electronic"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Category = "Toys"
-                        });
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("Common.DB_MODELS.ProductSize", b =>
@@ -193,29 +126,18 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductSizes");
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Size = "Small"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Size = "Medium"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Size = "Large"
-                        });
+                    b.ToTable("productSizes");
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
@@ -241,34 +163,29 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Common.DB_MODELS.OrderStatus", "OrderStatus")
-                        .WithMany("Orders")
-                        .HasForeignKey("OrderStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
-
-                    b.Navigation("OrderStatus");
                 });
 
-            modelBuilder.Entity("Common.DB_MODELS.Product", b =>
+            modelBuilder.Entity("Common.DB_MODELS.ProductCategory", b =>
                 {
-                    b.HasOne("Common.DB_MODELS.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryId")
+                    b.HasOne("Common.DB_MODELS.Product", "Product")
+                        .WithOne("ProductCategory")
+                        .HasForeignKey("Common.DB_MODELS.ProductCategory", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Common.DB_MODELS.ProductSize", "ProductSize")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductSizeId")
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Common.DB_MODELS.ProductSize", b =>
+                {
+                    b.HasOne("Common.DB_MODELS.Product", "Product")
+                        .WithOne("ProductSize")
+                        .HasForeignKey("Common.DB_MODELS.ProductSize", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductCategory");
-
-                    b.Navigation("ProductSize");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
@@ -291,19 +208,11 @@ namespace DAL.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Common.DB_MODELS.OrderStatus", b =>
+            modelBuilder.Entity("Common.DB_MODELS.Product", b =>
                 {
-                    b.Navigation("Orders");
-                });
+                    b.Navigation("ProductCategory");
 
-            modelBuilder.Entity("Common.DB_MODELS.ProductCategory", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Common.DB_MODELS.ProductSize", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("ProductSize");
                 });
 #pragma warning restore 612, 618
         }

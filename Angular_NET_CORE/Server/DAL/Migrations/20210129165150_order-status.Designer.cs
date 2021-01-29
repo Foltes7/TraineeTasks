@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppContextDatabase))]
-    partial class AppContextDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210129165150_order-status")]
+    partial class orderstatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,33 +83,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OrderStatuses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Status = "New"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Status = "Paid"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Status = "Shipped"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Status = "Delivered"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Status = "Closed"
-                        });
                 });
 
             modelBuilder.Entity("Common.DB_MODELS.Product", b =>
@@ -157,33 +132,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Category = "Food"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Category = "Cloth"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Category = "Book"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Category = "Electronic"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Category = "Toys"
-                        });
                 });
 
             modelBuilder.Entity("Common.DB_MODELS.ProductSize", b =>
@@ -199,23 +147,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductSizes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Size = "Small"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Size = "Medium"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Size = "Large"
-                        });
                 });
 
             modelBuilder.Entity("OrderProduct", b =>

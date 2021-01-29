@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common.DB_MODELS
 {
-    public enum Status
+    public class ProductSize: BaseEntity
     {
-        New,
-        Paid,
-        Shipped,
-        Delivered,
-        Closed
+        public string Size { set; get; }
+        public List<Product> Products { set; get; }
     }
 }

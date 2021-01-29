@@ -12,7 +12,8 @@ namespace Common.DB_MODELS
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public double Cost { set; get; }
-        public Status Status { set; get; }
+        public int OrderStatusId { set; get; }
+        public OrderStatus OrderStatus { set; get; }
         public List<Product> Products { set; get; } = new List<Product>();
     }
 }

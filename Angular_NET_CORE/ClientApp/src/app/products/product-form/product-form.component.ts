@@ -90,8 +90,7 @@ export class ProductFormComponent implements OnInit {
       category: form.productType,
       size: form.size,
       quantity: form.quantity,
-      price: form.price,
-      createdAt: new Date()
+      price: form.price
     };
     return obj;
   }

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.DB_MODELS
+namespace Common.DTO.Products
 {
-    public enum Size
+    public class ProductBase
     {
-        Small,
-        Medium,
-        Large
+
     }
 }
