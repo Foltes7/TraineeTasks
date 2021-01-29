@@ -18,9 +18,9 @@ namespace Server.Configuration
 
         public static void BL(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddTransient<ICustomersService, CustomersService>();
-            services.AddTransient<IOrdersService, OrdersService>();
-            services.AddTransient<IOrdersService, OrdersService>();
+            services.AddScoped<ICustomersService, CustomersService>();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IOrdersService, OrdersService>();
         }
 
         public static void DataBase(this IServiceCollection services, IConfiguration Configuration)

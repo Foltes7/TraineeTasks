@@ -16,8 +16,8 @@ namespace BI.Services
     public class CustomersService : ICustomersService
     {
         private readonly IMapper mapper;
-        private readonly CustomerRepository customerRepository;
-        public CustomersService(CustomerRepository customerRepository, IMapper mapper)
+        private readonly ICustomerRepository customerRepository;
+        public CustomersService(ICustomerRepository customerRepository, IMapper mapper)
         {
             this.customerRepository = customerRepository;
             this.mapper = mapper;
