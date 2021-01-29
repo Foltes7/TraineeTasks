@@ -1,26 +1,20 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Customer } from 'src/app/customers/models/customer';
+import { LoadCustomers } from 'src/app/customers/state/customers-actions';
+import { CustomersStore } from 'src/app/customers/state/customers-state';
 import { EdititngOrderProductsComponent } from 'src/app/shared/edititng-order-products/edititng-order-products.component';
 import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
 import { Status } from '../models/statuses';
+import { LoadStatuses } from '../state/orders-actions';
+import { OrdersStore } from '../state/orders-state';
 
-const ELEMENT_DATA: Customer[] = [ // TODO REMOVE
-  {id: 1, name: 'Hydrogen', totalCost: 1.0079, ordersCount: 5, address: 'Hydrogen2'},
-  {id: 2, name: 'Helium', totalCost: 4.0026, ordersCount: 1, address: 'Helium2'},
-  {id: 3, name: 'Lithium', totalCost: 6.941, ordersCount: 0, address: 'Helium2'},
-  {id: 4, name: 'Beryllium', totalCost: 9.0122, ordersCount: 10, address: 'Helium2'},
-  {id: 5, name: 'Boron', totalCost: 10.811, ordersCount: 15, address: 'Helium2'},
-  {id: 6, name: 'Carbon', totalCost: 12.0107, ordersCount: 17, address: 'Helium2'},
-  {id: 7, name: 'Nitrogen', totalCost: 14.0067, ordersCount: 16, address: 'Helium2'},
-  {id: 8, name: 'Oxygen', totalCost: 15.9994, ordersCount: 12, address: 'Helium2'},
-  {id: 9, name: 'Fluorine', totalCost: 18.9984, ordersCount: 2, address: 'Helium2'},
-  {id: 10, name: 'Neon', totalCost: 20.1797, ordersCount: 2, address: 'Helium2'},
-];
+
 
 @Component({
   selector: 'app-order-form',
@@ -33,10 +27,8 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['id', 'name', 'category', 'size', 'quantity', 'price'];
 
-  customers = ELEMENT_DATA;
-
-  statusEnum = Status;
-  statuses: string[] = [];
+  statuses: Status[];
+  customers: Customer[];
 
   @Output()
   cancelEvent = new EventEmitter<void>();
@@ -59,7 +51,8 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   });
 
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              private store: Store) { }
 
   ngOnDestroy(): void {
     this.destroy.next();
@@ -67,9 +60,23 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.store.dispatch([LoadStatuses, LoadCustomers]);
+
     const today = new Date().toISOString().split('T')[0];
     this.date?.setValue(today);
-    this.statuses = Object.keys(Status).filter(String);
+
+    this.store.select(OrdersStore.getStatuses)
+    .pipe(takeUntil(this.destroy))
+    .subscribe(statuses => {
+      this.statuses = statuses;
+    });
+
+    this.store.select(CustomersStore.getCustomers)
+    .pipe(takeUntil(this.destroy))
+    .subscribe(customers => {
+      this.customers = customers;
+    });
   }
 
   get date(): AbstractControl

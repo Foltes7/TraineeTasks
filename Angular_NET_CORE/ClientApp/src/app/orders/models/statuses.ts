@@ -1,7 +1,4 @@
-export enum Status{
-    New = 'New',
-    Paid = 'Paid',
-    Shipped = 'Shipped',
-    Delivered = 'Delivered',
-    Closed = 'Closed'
+export interface Status{
+    id: number;
+    status: string;
 }

@@ -2,6 +2,7 @@
 using Common.Commands;
 using Common.DB_MODELS;
 using Common.DTO.Customers;
+using Common.DTO.Orders;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +27,8 @@ namespace ProfilesForMapping
                 .ForMember(dest => dest.Id, memb => memb.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, memb => memb.MapFrom(x => x.Name))
                 .ForMember(dest => dest.Address, memb => memb.MapFrom(x => x.Address));
+
+            CreateMap<Customer, OrderCustomerDTO>();
         }
     }
 }

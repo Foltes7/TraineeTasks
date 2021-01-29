@@ -10,5 +10,7 @@ namespace DAL.Repositories
 {
     public interface IOrderRepository : IRepository<Order>
     {
+        Task<IEnumerable<Order>> GetAllOrders();
+        Task<Order> GetFullOrder(int id);
     }
 }

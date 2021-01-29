@@ -1,20 +1,22 @@
-﻿using System;
+﻿using Common.DB_MODELS;
+using Common.DTO.Products;
+using Common.DTO.Status;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.DB_MODELS
+namespace Common.DTO.Orders
 {
-    public class Order : BaseEntity
+    public class FullOrderDTO
     {
+        public int Id { set; get; }
         public DateTime CreatedAt { set; get; }
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
         public double Cost { set; get; }
         public string Description { set; get; }
         public int OrderStatusId { set; get; }
-        public OrderStatus OrderStatus { set; get; }
-        public List<Product> Products { set; get; } = new List<Product>();
+        public List<ProductDTO> Products { set; get; } = new List<ProductDTO>();
     }
 }

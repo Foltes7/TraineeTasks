@@ -1,5 +1,6 @@
 ﻿using BI.Interfaces;
 using Common.DB_MODELS;
+using Common.DTO.Orders;
 using Common.DTO.Status;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,21 @@ namespace Server.Controllers
         }
 
         [HttpGet("status")]
-        public async Task<IEnumerable<StatusDTO>> GetSizes()
+        public async Task<IEnumerable<StatusDTO>> GetStatuses()
         {
             return await this.statusService.GetAll();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<OrderDTO>> GetTableOrders()
+        {
+            return await ordersService.GetTableOrders();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<FullOrderDTO> GetFullOrder(int id)
+        {
+            return await ordersService.GetFullOrder(id);
         }
     }
 }
