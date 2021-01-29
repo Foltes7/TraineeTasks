@@ -1,4 +1,5 @@
 ﻿using Common.DB_MODELS;
+using Common.DTO.Products;
 using DAL.GenericRepository;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,7 @@ namespace DAL.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Task<IEnumerable<Product>> GetAllProducts();
+        Task<Product> GetFullProduct(int id);
     }
 }

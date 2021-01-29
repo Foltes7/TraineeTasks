@@ -1,19 +1,21 @@
-﻿using System;
+﻿using Common.DB_MODELS;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Common.DB_MODELS
+namespace Common.DTO.Products
 {
-    public class Product : BaseEntity
+    public class FullProductDTO
     {
+        public int Id { set; get; }
+        public string Description { set; get; }
         public int Quantity { set; get; }
         public double Price { set; get; }
         public string Name { set; get; }
-        public string Description { set; get; }
         public DateTime CreatedAt { set; get; }
-        public List<Order> Orders { set; get; } = new List<Order>();
-        public int ProductSizeId { set; get; }
         public ProductSize ProductSize { set; get; }
-        public int ProductCategoryId { set; get; }
         public ProductCategory ProductCategory { set; get; }
     }
 }

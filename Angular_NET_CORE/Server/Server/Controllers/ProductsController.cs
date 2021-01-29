@@ -1,6 +1,7 @@
 ﻿using BI.Interfaces;
 using Common.DB_MODELS;
 using Common.DTO.Categories;
+using Common.DTO.Products;
 using Common.DTO.Sizes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,15 +42,15 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public async Task GetTableProducts()
+        public async Task<IEnumerable<ProductDTO>> GetTableProducts()
         {
-
+            return await productsService.GetTableProducts();
         }
 
         [HttpGet("{id}")]
-        public async Task GetFullProduct(int id)
+        public async Task<FullProductDTO> GetFullProduct(int id)
         {
-
+            return await productsService.GetFullProduct(id);
         }
     }
 }
