@@ -1,4 +1,5 @@
 ﻿using BI.Interfaces;
+using Common.DB_MODELS;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,9 +14,17 @@ namespace Server.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersService ordersService;
-        public OrdersController(IOrdersService ordersService)
+        private readonly IStatusService statusService;
+        public OrdersController(IOrdersService ordersService, IStatusService statusService)
         {
             this.ordersService = ordersService;
+            this.statusService = statusService;
+        }
+
+        [HttpGet("status")]
+        public async Task<IEnumerable<OrderStatus>> GetSizes()
+        {
+            return await this.statusService.GetAll();
         }
     }
 }

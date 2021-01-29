@@ -19,8 +19,12 @@ namespace Server.Configuration
         public static void BL(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddScoped<ICustomersService, CustomersService>();
+            services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<IOrdersService, OrdersService>();
-            services.AddScoped<IOrdersService, OrdersService>();
+
+            services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<ISizesService, SizesService>();
+            services.AddScoped<IStatusService, StatusService>();
         }
 
         public static void DataBase(this IServiceCollection services, IConfiguration Configuration)
