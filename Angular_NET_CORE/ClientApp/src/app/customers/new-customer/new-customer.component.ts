@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { NewCustomer } from '../state/customers-actions';
 
 @Component({
   selector: 'app-new-customer',
@@ -15,7 +17,8 @@ export class NewCustomerComponent implements OnInit {
     address: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45) ]),
   });
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private store: Store) { }
 
   ngOnInit(): void {
      const today = new Date().toISOString().split('T')[0];
@@ -41,7 +44,10 @@ export class NewCustomerComponent implements OnInit {
 
   createNewCustomer(): void
   {
-    console.log(this.mainForm.value);
+    const name = this.mainForm.value.name;
+    const address = this.mainForm.value.address;
+    this.store.dispatch(new NewCustomer(name, address));
+    this.router.navigate(['customers']);
   }
 
 }

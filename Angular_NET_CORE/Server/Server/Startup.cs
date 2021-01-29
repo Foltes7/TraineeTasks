@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProfilesForMapping;
 using Server.Configuration;
+using Server.ExceptionMiddleWare;
+using Server.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +43,10 @@ namespace Server
             services.DataBase(Configuration);
             services.BL(Configuration);
 
-            services.AddControllers();
+            services
+                .AddControllers(opt => opt.Filters.Add(typeof(ValidationFilter)))
+                .AddNewtonsoftJson();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" });
@@ -57,6 +62,8 @@ namespace Server
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1"));
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseRouting();
             app.UseCors("MyPolicy");

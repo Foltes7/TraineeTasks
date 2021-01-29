@@ -21,11 +21,11 @@ export class CustomersApiService {
     return this.httpClient.get<Customer[]>(environment.API + `/api/customers`);
   }
 
-  newCustomer(name: string, adress: string): Observable<Customer>
+  newCustomer(name: string, address: string): Observable<Customer>
   {
     const obj = {
       name,
-      adress
+      address
     };
     return this.httpClient.post<Customer>(environment.API + `/api/customers`, obj);
   }

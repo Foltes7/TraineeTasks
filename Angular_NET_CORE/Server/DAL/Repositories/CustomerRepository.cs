@@ -15,7 +15,7 @@ namespace DAL.Repositories
 
         public async Task<IEnumerable<Customer>> GetAllForTable()
         {
-            return await this.context.Customers.Include(x => x.Orders).ToListAsync();
+            return await this.context.Customers.Include(x => x.Orders).OrderByDescending(x => x.CreatedAt).ToListAsync();
         }
     }
 }
