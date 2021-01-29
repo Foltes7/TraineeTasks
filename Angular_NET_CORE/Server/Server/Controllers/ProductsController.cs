@@ -59,5 +59,11 @@ namespace Server.Controllers
         {
             return await productsService.CreateNewProduct(command);
         }
+
+        [HttpDelete("{id}")]
+        public async Task RemoveProduct(int id)
+        {
+            await productsService.RemoveProduct(id);
+        }
     }
 }

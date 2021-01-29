@@ -5,7 +5,7 @@ import { FullProduct } from '../models/fullProduct';
 import { Product } from '../models/product';
 import { Size } from '../models/size';
 import { ProductsApiService } from '../services/products-api.service';
-import { LoadCategories, LoadFullProduct, LoadProducts, LoadSizes, NewProduct } from './products-actions';
+import { LoadCategories, LoadFullProduct, LoadProducts, LoadSizes, NewProduct, RemoveProduct } from './products-actions';
 
 interface ProductsState {
     products: Product[];
@@ -98,6 +98,15 @@ export class ProductsStore {
         const newProduct = await this.productsService.createNew(command).toPromise();
         patchState({
             products: [newProduct, ...getState().products]
+        });
+    }
+
+    @Action(RemoveProduct)
+    async removeProduct({patchState, getState}: StateContext<ProductsState>, {id}: RemoveProduct): Promise<void>
+    {
+        await this.productsService.removeProduct(id).toPromise();
+        patchState({
+            products: getState().products.filter(x => x.id !== id)
         });
     }
 }

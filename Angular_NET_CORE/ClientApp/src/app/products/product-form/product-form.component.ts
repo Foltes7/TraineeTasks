@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Category } from '../models/category';
-import { Product } from '../models/product';
+import { FullProduct } from '../models/fullProduct';
 import { Size } from '../models/size';
 import { LoadCategories, LoadSizes } from '../state/products-actions';
 import { ProductsStore } from '../state/products-state';
@@ -25,7 +25,7 @@ export class ProductFormComponent implements OnInit {
   cancelEvent = new EventEmitter<void>();
 
   @Output()
-  saveEvent = new EventEmitter<Product>();
+  saveEvent = new EventEmitter<FullProduct>();
 
   @Input()
   editable: boolean;
@@ -87,16 +87,18 @@ export class ProductFormComponent implements OnInit {
     this.saveEvent.emit(this.getProductFromForm());
   }
 
-  getProductFromForm(): Product
+  getProductFromForm(): FullProduct
   {
-    const form = this.mainForm.value;
-    const obj: Product = {
-      id: form.id,
-      name: form.productName,
-      category: form.productType,
-      size: form.size,
-      quantity: form.quantity,
-      price: form.price
+    const values = this.mainForm.value;
+    const obj: FullProduct = {
+      id: values.productNumber,
+      name: values.productName,
+      productCategory: values.productType,
+      productSize: values.size,
+      quantity: values.quantity,
+      price: values.price,
+      createdAt: values.date,
+      description: values.description
     };
     return obj;
   }

@@ -24,3 +24,8 @@ export class NewProduct {
     static type = '[Products] New';
     constructor(public command: NewProductCommand) {}
 }
+
+export class RemoveProduct{
+    static type = '[Products] Remove';
+    constructor(public id: number) {}
+}

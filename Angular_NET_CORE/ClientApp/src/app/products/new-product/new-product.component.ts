@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from '../models/product';
+import { Store } from '@ngxs/store';
+import { FullProduct } from '../models/fullProduct';
+import { NewProductCommand } from '../models/newProductCommand';
+import { NewProduct } from '../state/products-actions';
 
 @Component({
   selector: 'app-new-product',
@@ -9,7 +12,8 @@ import { Product } from '../models/product';
 })
 export class NewProductComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private store: Store) { }
 
   ngOnInit(): void {
 
@@ -20,9 +24,19 @@ export class NewProductComponent implements OnInit {
     this.router.navigate(['products']);
   }
 
-  saveFormHandler(product: Product): void
+  saveFormHandler(product: FullProduct): void
   {
-    console.log(product);
+    const command: NewProductCommand = {
+      quantity: product.quantity,
+      name: product.name,
+      productCategoryId: product.productCategory.id,
+      productSizeId: product.productSize.id,
+      price: product.price,
+      description: product.description
+    };
+    this.store.dispatch(new NewProduct(command))
+    .toPromise()
+    .then(x => this.router.navigate(['products']));
   }
 
 

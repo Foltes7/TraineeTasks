@@ -38,4 +38,9 @@ export class ProductsApiService {
     return this.httpClient.post<Product>(environment.API + `/api/products`, command);
   }
 
+  removeProduct(id: number): Observable<any>
+  {
+    return this.httpClient.delete(environment.API + `/api/products/${id}`);
+  }
+
 }

@@ -4,8 +4,8 @@ import { Size } from './size';
 export interface Product{
     id: number;
     name: string;
-    category: Category;
-    size: Size;
+    productCategory: Category;
+    productSize: Size;
     quantity: number;
     price: number;
 }

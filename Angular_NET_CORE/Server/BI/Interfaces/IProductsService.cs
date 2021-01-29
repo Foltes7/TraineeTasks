@@ -13,5 +13,6 @@ namespace BI.Interfaces
         Task<IEnumerable<ProductDTO>> GetTableProducts();
         Task<FullProductDTO> GetFullProduct(int id);
         Task<ProductDTO> CreateNewProduct(NewProductCommand command);
+        Task RemoveProduct(int id);
     }
 }

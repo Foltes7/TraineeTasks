@@ -1,4 +1,6 @@
 ﻿using Common.DB_MODELS;
+using Common.DTO.Categories;
+using Common.DTO.Sizes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace Common.DTO.Products
         public double Price { set; get; }
         public string Name { set; get; }
         public DateTime CreatedAt { set; get; }
-        public ProductSize ProductSize { set; get; }
-        public ProductCategory ProductCategory { set; get; }
+        public SizeDTO ProductSize { set; get; }
+        public CategoryDTO ProductCategory { set; get; }
     }
 }

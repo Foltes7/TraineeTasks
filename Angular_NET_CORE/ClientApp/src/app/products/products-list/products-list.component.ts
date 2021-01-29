@@ -6,7 +6,7 @@ import { Product } from '../models/product';
 import { takeUntil } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { ProductsStore } from '../state/products-state';
-import { LoadProducts } from '../state/products-actions';
+import { LoadProducts, RemoveProduct } from '../state/products-actions';
 import { SmoothAppearance } from 'src/app/shared/animations/animations';
 
 
@@ -34,13 +34,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(LoadProducts);
     this.store.select(ProductsStore.getProducts)
     .pipe(takeUntil(this.destroy))
     .subscribe(products => {
       this.products = products;
       this.loaded = true;
     });
-    this.store.dispatch(LoadProducts);
   }
 
   delete(id: number): void
@@ -52,7 +52,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     .subscribe((result: boolean) => {
       if (result)
       {
-        // this.dataSource = this.dataSource.filter(z => z.id !== id); // TODO CHANGE
+        this.store.dispatch(new RemoveProduct(id));
       }
     });
   }
