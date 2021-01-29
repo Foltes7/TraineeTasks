@@ -1,11 +1,9 @@
 ﻿using BI.Interfaces;
 using Common.Commands;
 using Common.DTO;
-using Microsoft.AspNetCore.Http;
+using Common.DTO.Customers;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Server.Controllers
@@ -21,21 +19,21 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public Task<List<CustomerDTO>> GetCustomers()
+        public async Task<IEnumerable<CustomerTableItem>> GetCustomers()
         {
-            return null;
+            return await this.customerService.GetCustomers();
         }
 
         [HttpGet("{id}")]
-        public Task<List<CustomerDTO>> GetCustomer(int id)
+        public async Task<CustomerViewDetails> GetCustomer(int id)
         {
-            return null;
+            return await this.customerService.GetCustomer(id);
         }
 
-        [HttpPost()]
-        public Task<List<CustomerDTO>> CreateNewCustomer(NewCustomerCommand command)
+        [HttpPost]
+        public async Task<ResponseNewId> CreateNewCustomer(NewCustomerCommand command)
         {
-            return null;
+            return await this.customerService.CreateNewCustomer(command);
         }
 
     }

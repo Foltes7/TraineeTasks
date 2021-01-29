@@ -42,7 +42,7 @@ namespace DAL.GenericRepository
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
             return await entities.ToListAsync();
         }

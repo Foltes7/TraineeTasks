@@ -10,5 +10,6 @@ namespace DAL.Repositories
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
+        public Task<IEnumerable<Customer>> GetAllForTable();
     }
 }

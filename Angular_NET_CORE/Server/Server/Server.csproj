@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BI\BI.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\ProfilesForMapping\ProfilesForMapping.csproj" />
   </ItemGroup>
 
 </Project>

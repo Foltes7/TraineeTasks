@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ProfilesForMapping;
 using Server.Configuration;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,8 @@ namespace Server
                        .AllowCredentials()
                        .WithOrigins("http://localhost:4200", "http://localhost:8080");
             }));
+
+            services.AddAutoMapper(typeof(CustomerProfile).Assembly);
 
             services.DataBase(Configuration);
             services.BL(Configuration);
