@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BI.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,10 @@ namespace Server.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+        private readonly IOrdersService ordersService;
+        public OrdersController(IOrdersService ordersService)
+        {
+            this.ordersService = ordersService;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.Commands;
+﻿using BI.Interfaces;
+using Common.Commands;
 using Common.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,12 @@ namespace Server.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
+        private readonly ICustomersService customerService;
+        public CustomersController(ICustomersService customerService)
+        {
+            this.customerService = customerService;
+        }
+
         [HttpGet]
         public Task<List<CustomerDTO>> GetCustomers()
         {

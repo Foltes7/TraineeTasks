@@ -11,7 +11,6 @@ namespace Common.DB_MODELS
         public DateTime CreatedAt { set; get; }
         public string Name { set; get; }
         public string Address { set; get; }
-        public double TotalCost { set; get; }
-        public int OrdersCount { set; get; }
+        public List<Order> Orders { set; get; } = new List<Order>();
     }
 }

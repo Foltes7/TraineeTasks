@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BI.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,10 @@ namespace Server.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IProductsService productsService;
+        public ProductsController(IProductsService productsService)
+        {
+            this.productsService = productsService;
+        }
     }
 }

@@ -13,8 +13,7 @@ namespace Common.DB_MODELS
         public string Category { set; get; }
         public string Name { set; get; }
         public DateTime CreatedAt { set; get; }
-        public int OrderId { get; set; }
-        public Order Order { get; set; } 
+        public List<Order> Orders { set; get; } = new List<Order>();
         public Size Size { set; get; }
     }
 }

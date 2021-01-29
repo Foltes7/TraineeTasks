@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BI.Services
 {
-    public class CustomersService: ICustomerService
+    public class CustomersService: ICustomersService
     {
     }
 }

@@ -2,6 +2,7 @@
 using BI.Services;
 using DAL;
 using DAL.GenericRepository;
+using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ namespace Server.Configuration
 
         public static void BL(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddTransient<ICustomerService, CustomersService>();
+            services.AddTransient<ICustomersService, CustomersService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IOrdersService, OrdersService>();
         }
@@ -27,7 +28,10 @@ namespace Server.Configuration
             string connection = Configuration.GetSection("Database").Value;
             services.AddDbContext<AppContextDatabase>(options => options.UseSqlServer(connection));
 
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }

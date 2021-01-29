@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BI.Interfaces
 {
-    public interface ICustomerService
+    public interface ICustomersService
     {
     }
 }
