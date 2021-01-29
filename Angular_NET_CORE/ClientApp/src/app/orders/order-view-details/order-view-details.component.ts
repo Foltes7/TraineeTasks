@@ -19,10 +19,10 @@ export class OrderViewDetailsComponent implements OnInit {
   {
     this.editable = true;
   }
-  
+
   cancelHandler(): void
   {
-
+    this.editable = false;
   }
 
   saveFormHandler(order: Order): void

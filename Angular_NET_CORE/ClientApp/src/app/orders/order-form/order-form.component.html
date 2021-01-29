@@ -1,1 +1,60 @@
-<p>order-form works!</p>
+<form [formGroup]="mainForm" class="form">
+
+    <mat-form-field>
+        <mat-label>Order Number</mat-label>
+        <input matInput readonly placeholder="Order Number" name="orderNumber" formControlName="orderNumber">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Order Date</mat-label>
+        <input matInput readonly placeholder="Date" type="date" name="date" formControlName="date">
+    </mat-form-field>
+
+    <div class="divider"></div>
+
+
+    <mat-form-field>
+        <mat-label>Select Customer</mat-label>
+        <mat-select [disabled]="!editable"  name="customer" formControlName="customer">
+            <mat-option *ngFor="let customer of customers" [value]="customer">
+            {{customer.customerName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Select Status</mat-label>
+        <mat-select [disabled]="!editable" name="status" formControlName="status">
+            <mat-option *ngFor="let status of statuses" [value]="status">
+                {{statusEnum[status]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-label>Total Cost</mat-label>
+        <input [readonly]="true" matInput placeholder="Total cost" name="cost" formControlName="cost">
+    </mat-form-field>
+
+    <div class="products-section">
+        <div class="title">
+            <p>Order products</p>
+            <button mat-stroked-button color="primary">Manage products</button>
+        </div>
+    </div>
+
+    <mat-form-field class="textarea-mr-t">
+        <mat-label>Comment</mat-label>
+        <textarea [readonly]="!editable" matInput placeholder="Comment" name="comment" formControlName="comment"></textarea>
+    </mat-form-field>
+
+    <div *ngIf="editable" class="buttons">
+        <button [disabled]="mainForm.invalid" mat-stroked-button (click)="saveForm()">
+            Save
+        </button>
+        <button mat-stroked-button (click)="cancelHandler()">
+            Cancel
+        </button>
+    </div>
+</form>
