@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
-import { Status } from '../models/statuses';
+import { Status } from '../models/status';
 
 @Injectable()
 export class OrdersApiService {

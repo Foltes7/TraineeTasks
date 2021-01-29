@@ -1,6 +1,11 @@
 import { Product } from 'src/app/products/models/product';
-import { Order } from './orders';
 
-export interface FullOrder extends Order{
+export interface FullOrder{
+    id: number;
+    createdAt: Date;
+    customerId: number;
+    cost: number;
+    description: string;
+    orderStatusId: number;
     products: Product[];
 }

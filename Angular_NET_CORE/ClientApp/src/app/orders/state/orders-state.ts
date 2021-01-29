@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
-import { Status } from '../models/statuses';
+import { Status } from '../models/status';
 import { OrdersApiService } from '../services/orders-api.service';
 import { LoadFullOrder, LoadOrders, LoadStatuses } from './orders-actions';
 

@@ -10,7 +10,7 @@ import { CustomersStore } from 'src/app/customers/state/customers-state';
 import { EdititngOrderProductsComponent } from 'src/app/shared/edititng-order-products/edititng-order-products.component';
 import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
-import { Status } from '../models/statuses';
+import { Status } from '../models/status';
 import { LoadStatuses } from '../state/orders-actions';
 import { OrdersStore } from '../state/orders-state';
 

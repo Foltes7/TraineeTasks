@@ -1,10 +1,9 @@
-import { Status } from './statuses';
+import { OrderCustomer } from './orderCustomer';
+import { Status } from './status';
 
 export interface Order{
     id: number;
-    createdAt: Date;
-    customerName: string;
-    customerAddress: string;
+    customer: OrderCustomer;
     cost: number;
-    status: Status;
+    orderStatus: Status;
 }
