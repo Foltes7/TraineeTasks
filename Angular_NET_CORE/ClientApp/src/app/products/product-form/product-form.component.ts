@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Categories } from '../models/categories';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { Size } from '../models/size';
+import { LoadCategories, LoadSizes } from '../state/products-actions';
+import { ProductsStore } from '../state/products-state';
 
 @Component({
   selector: 'app-product-form',
@@ -10,6 +14,12 @@ import { Size } from '../models/size';
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent implements OnInit {
+
+  @Select(ProductsStore.getSizes)
+  public sizes$: Observable<Size[]>;
+
+  @Select(ProductsStore.getCategories)
+  public categories$: Observable<Category[]>;
 
   @Output()
   cancelEvent = new EventEmitter<void>();
@@ -20,11 +30,6 @@ export class ProductFormComponent implements OnInit {
   @Input()
   editable: boolean;
 
-  categoriesEnum = Categories;
-  categories: string[] = [];
-
-  sizeEnum = Size;
-  sizes: string[] = [];
 
   public mainForm: FormGroup = new FormGroup({
     productNumber: new FormControl(''),
@@ -37,13 +42,14 @@ export class ProductFormComponent implements OnInit {
     date: new FormControl('',  [Validators.required]),
   });
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
     this.date?.setValue(today);
-    this.categories = Object.keys(Categories).filter(String);
-    this.sizes = Object.keys(Size).filter(String);
+
+    this.store.dispatch(LoadSizes);
+    this.store.dispatch(LoadCategories);
   }
 
   get price(): AbstractControl

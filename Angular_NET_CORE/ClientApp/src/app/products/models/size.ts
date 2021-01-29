@@ -1,5 +1,4 @@
-export enum Size{
-    Small = 'Small',
-    Medium = 'Medium',
-    Large = 'Large'
+export interface Size{
+    id: number;
+    size: string;
 }

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BI.Interfaces;
+using Common.Commands;
+using Common.DB_MODELS;
 using Common.DTO.Products;
 using DAL.Repositories;
 using System;
@@ -18,6 +20,14 @@ namespace BI.Services
         {
             this.productRepository = productRepository;
             this.mapper = mapper;
+        }
+
+        public async Task<ProductDTO> CreateNewProduct(NewProductCommand command)
+        {
+            var product = mapper.Map<Product>(command);
+            product.CreatedAt = DateTime.Now;
+            await productRepository.Add(product);
+            return mapper.Map<ProductDTO>(product);
         }
 
         public async Task<FullProductDTO> GetFullProduct(int id)

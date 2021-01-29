@@ -18,7 +18,9 @@ namespace DAL.Repositories
         {
             return await this.context.Products
                 .Include(x => x.ProductCategory)
-                .Include(x => x.ProductSize).ToListAsync();
+                .Include(x => x.ProductSize)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
         }
 
         public async Task<Product> GetFullProduct(int id)

@@ -15,16 +15,21 @@
                 font-weight: bold;
             }
         }
-    }
-}
-table {
-    margin-top: 15px;
-    width: 100%;
-    .id-cell{
-        cursor: pointer;
-        outline: none;
-        &:hover{
-            color: blue;
+        table {
+            margin-top: 15px;
+            width: 100%;
+            .id-cell{
+                cursor: pointer;
+                outline: none;
+                &:hover{
+                    color: blue;
+                }
+            }
+        }
+        .spinner{
+            margin-top: 150px;
+            display: flex;
+            justify-content: center;
         }
     }
 }

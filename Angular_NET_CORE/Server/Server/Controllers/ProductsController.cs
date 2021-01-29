@@ -1,4 +1,5 @@
 ﻿using BI.Interfaces;
+using Common.Commands;
 using Common.DB_MODELS;
 using Common.DTO.Categories;
 using Common.DTO.Products;
@@ -51,6 +52,12 @@ namespace Server.Controllers
         public async Task<FullProductDTO> GetFullProduct(int id)
         {
             return await productsService.GetFullProduct(id);
+        }
+
+        [HttpPost]
+        public async Task<ProductDTO> CreateNewProduct(NewProductCommand command)
+        {
+            return await productsService.CreateNewProduct(command);
         }
     }
 }

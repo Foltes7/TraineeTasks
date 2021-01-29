@@ -1,4 +1,5 @@
-﻿using Common.DTO.Products;
+﻿using Common.Commands;
+using Common.DTO.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace BI.Interfaces
     {
         Task<IEnumerable<ProductDTO>> GetTableProducts();
         Task<FullProductDTO> GetFullProduct(int id);
+        Task<ProductDTO> CreateNewProduct(NewProductCommand command);
     }
 }

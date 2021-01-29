@@ -5,15 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DTO\Products\ProductBase.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Query\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="DTO\Products\ProductBase.cs" />
   </ItemGroup>
 
 </Project>
