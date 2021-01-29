@@ -32,12 +32,28 @@
     }
 
     .products-section{
-        width: 60%;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
         .title{
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+    }
+}
+
+table {
+    border: 1px solid #f2f2f2;
+    box-shadow: none;
+    margin-top: 15px;
+    width: 100%;
+    .id-cell{
+        cursor: pointer;
+        outline: none;
+        &:hover{
+            color: blue;
         }
     }
 }

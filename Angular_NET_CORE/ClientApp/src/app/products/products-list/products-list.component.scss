@@ -15,19 +15,20 @@
                 font-weight: bold;
             }
         }
-        table {
-            margin-top: 15px;
-            width: 100%;
-            .id-cell{
-                cursor: pointer;
-                outline: none;
-                &:hover{
-                    color: blue;
-                }
-            }
+    }
+}
+table {
+    margin-top: 15px;
+    width: 100%;
+    .id-cell{
+        cursor: pointer;
+        outline: none;
+        &:hover{
+            color: blue;
         }
     }
 }
+
 .mr-l{
     margin-left: 15px;
 }

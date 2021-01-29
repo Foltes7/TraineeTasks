@@ -1,6 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Customer } from 'src/app/customers/models/customer';
+import { EdititngOrderProductsComponent } from 'src/app/shared/edititng-order-products/edititng-order-products.component';
+import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
 import { Status } from '../models/statuses';
 
@@ -22,7 +27,11 @@ const ELEMENT_DATA: Customer[] = [ // TODO REMOVE
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss']
 })
-export class OrderFormComponent implements OnInit {
+export class OrderFormComponent implements OnInit, OnDestroy {
+
+  destroy = new Subject<void>();
+
+  displayedColumns: string[] = ['id', 'name', 'category', 'size', 'quantity', 'price'];
 
   customers = ELEMENT_DATA;
 
@@ -38,6 +47,8 @@ export class OrderFormComponent implements OnInit {
   @Input()
   editable: boolean;
 
+  fullOrder: FullOrder;
+
   public mainForm: FormGroup = new FormGroup({
     orderNumber: new FormControl(''),
     comment: new FormControl('', []),
@@ -48,10 +59,22 @@ export class OrderFormComponent implements OnInit {
   });
 
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
+  }
 
   ngOnInit(): void {
+    const today = new Date().toISOString().split('T')[0];
+    this.date?.setValue(today);
     this.statuses = Object.keys(Status).filter(String);
+  }
+
+  get date(): AbstractControl
+  {
+    return this.mainForm.get('date');
   }
 
   cancelHandler(): void
@@ -62,6 +85,17 @@ export class OrderFormComponent implements OnInit {
   saveForm(): void
   {
     // this.saveEvent.emit(this.getProductFromForm());
+  }
+
+  manageProducts(): void
+  {
+    const dialogRef = this.dialog.open(EdititngOrderProductsComponent, {});
+
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy))
+    .subscribe((result: boolean) => {
+      console.log('closed');
+    });
   }
 
 }

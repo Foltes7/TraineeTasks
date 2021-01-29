@@ -7,9 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmationDeleteWindowComponent } from './confirmation-delete-window/confirmation-delete-window.component';
+import { EdititngOrderProductsComponent } from './edititng-order-products/edititng-order-products.component';
 
 @NgModule({
-  declarations: [ConfirmationDeleteWindowComponent],
+  declarations: [ConfirmationDeleteWindowComponent, EdititngOrderProductsComponent],
   imports: [
     CommonModule,
     MatButtonModule,
