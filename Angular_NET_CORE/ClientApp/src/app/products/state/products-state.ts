@@ -5,7 +5,7 @@ import { FullProduct } from '../models/fullProduct';
 import { Product } from '../models/product';
 import { Size } from '../models/size';
 import { ProductsApiService } from '../services/products-api.service';
-import { LoadCategories, LoadFullProduct, LoadProducts, LoadSizes, NewProduct, RemoveProduct } from './products-actions';
+import { LoadCategories, LoadFullProduct, LoadProducts, LoadSizes, NewProduct, RemoveProduct, UpdateProduct } from './products-actions';
 
 interface ProductsState {
     products: Product[];
@@ -108,5 +108,11 @@ export class ProductsStore {
         patchState({
             products: getState().products.filter(x => x.id !== id)
         });
+    }
+
+    @Action(UpdateProduct)
+    async updateProduct({patchState, getState}: StateContext<ProductsState>, {command}: UpdateProduct): Promise<void>
+    {
+        await this.productsService.updateProduct(command).toPromise();
     }
 }

@@ -65,5 +65,11 @@ namespace Server.Controllers
         {
             await productsService.RemoveProduct(id);
         }
+
+        [HttpPut]
+        public async Task UpdateProduct(UpdateProductCommand command)
+        {
+            await productsService.UpdateProduct(command);
+        }
     }
 }

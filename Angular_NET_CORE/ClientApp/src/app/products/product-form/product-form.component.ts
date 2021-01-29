@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Category } from '../models/category';
 import { FullProduct } from '../models/fullProduct';
 import { Size } from '../models/size';
@@ -13,13 +14,12 @@ import { ProductsStore } from '../state/products-state';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Select(ProductsStore.getSizes)
-  public sizes$: Observable<Size[]>;
+  destroy = new Subject<void>();
 
-  @Select(ProductsStore.getCategories)
-  public categories$: Observable<Category[]>;
+  sizes: Size[];
+  categories: Category[];
 
   @Output()
   cancelEvent = new EventEmitter<void>();
@@ -29,6 +29,9 @@ export class ProductFormComponent implements OnInit {
 
   @Input()
   editable: boolean;
+
+  @Input()
+  fullProduct: FullProduct;
 
 
   public mainForm: FormGroup = new FormGroup({
@@ -44,12 +47,62 @@ export class ProductFormComponent implements OnInit {
 
   constructor(private store: Store) { }
 
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.fullProduct)
+    {
+      const date = new Date(this.fullProduct.createdAt).toISOString().split('T')[0];
+      this.mainForm.setValue({
+          productNumber: this.fullProduct.id,
+          productName:  this.fullProduct.name,
+          description: this.fullProduct.description,
+          quantity: this.fullProduct.quantity,
+          price: this.fullProduct.price,
+          productType: this.fullProduct.productCategory.id,
+          size: this.fullProduct.productSize.id,
+          date
+        });
+    }
+
+    this.checkFormSelectedStatus();
+  }
+
   ngOnInit(): void {
     const today = new Date().toISOString().split('T')[0];
     this.date?.setValue(today);
 
     this.store.dispatch(LoadSizes);
     this.store.dispatch(LoadCategories);
+
+    this.store.select(ProductsStore.getSizes)
+    .pipe(takeUntil(this.destroy))
+    .subscribe(sizes => {
+      this.sizes = sizes;
+    });
+
+    this.store.select(ProductsStore.getCategories)
+    .pipe(takeUntil(this.destroy))
+    .subscribe(categories => {
+      this.categories = categories;
+    });
+
+    this.checkFormSelectedStatus();
+  }
+
+  checkFormSelectedStatus(): void
+  {
+    if (!this.editable)
+    {
+      this.productType.disable();
+      this.size.disable();
+    }else{
+      this.productType.enable();
+      this.size.enable();
+    }
   }
 
   get price(): AbstractControl
@@ -77,6 +130,15 @@ export class ProductFormComponent implements OnInit {
     return this.mainForm.get('description');
   }
 
+  get size(): AbstractControl
+  {
+    return this.mainForm.get('size');
+  }
+
+  get productType(): AbstractControl{
+    return this.mainForm.get('productType');
+  }
+
   cancelHandler(): void
   {
     this.cancelEvent.emit();
@@ -90,11 +152,13 @@ export class ProductFormComponent implements OnInit {
   getProductFromForm(): FullProduct
   {
     const values = this.mainForm.value;
+    const productSize = this.sizes.find(x => x.id === values.size);
+    const productCategory = this.categories.find(x => x.id === values.productType);
     const obj: FullProduct = {
       id: values.productNumber,
       name: values.productName,
-      productCategory: values.productType,
-      productSize: values.size,
+      productCategory,
+      productSize,
       quantity: values.quantity,
       price: values.price,
       createdAt: values.date,

@@ -1,4 +1,5 @@
 import { NewProductCommand } from '../models/newProductCommand';
+import { UpdateProductCommand } from '../models/updateProductCommand';
 
 export class LoadSizes {
     static type = '[Products] Load Sizes';
@@ -28,4 +29,9 @@ export class NewProduct {
 export class RemoveProduct{
     static type = '[Products] Remove';
     constructor(public id: number) {}
+}
+
+export class UpdateProduct{
+    static type = '[Products] Update';
+    constructor(public command: UpdateProductCommand) {}
 }

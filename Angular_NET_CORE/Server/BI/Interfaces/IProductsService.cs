@@ -14,5 +14,6 @@ namespace BI.Interfaces
         Task<FullProductDTO> GetFullProduct(int id);
         Task<ProductDTO> CreateNewProduct(NewProductCommand command);
         Task RemoveProduct(int id);
+        Task UpdateProduct(UpdateProductCommand command);
     }
 }

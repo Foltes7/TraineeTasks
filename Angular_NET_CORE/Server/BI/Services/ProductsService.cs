@@ -52,5 +52,20 @@ namespace BI.Services
                 await this.productRepository.Remove(entity);
             }
         }
+
+        public async Task UpdateProduct(UpdateProductCommand command)
+        {
+            var entity = await productRepository.GetById(command.Id);
+            if(entity != null)
+            {
+                entity.Name = command.Name;
+                entity.ProductCategoryId = command.ProductCategoryId;
+                entity.ProductSizeId = command.ProductSizeId;
+                entity.Description = command.Description;
+                entity.Price = command.Price;
+                entity.Quantity = command.Quantity;
+                await productRepository.Update(entity);
+            }
+        }
     }
 }

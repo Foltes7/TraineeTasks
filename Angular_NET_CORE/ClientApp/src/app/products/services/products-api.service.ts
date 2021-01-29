@@ -7,6 +7,7 @@ import { FullProduct } from '../models/fullProduct';
 import { NewProductCommand } from '../models/newProductCommand';
 import { Product } from '../models/product';
 import { Size } from '../models/size';
+import { UpdateProductCommand } from '../models/updateProductCommand';
 
 @Injectable()
 export class ProductsApiService {
@@ -41,6 +42,11 @@ export class ProductsApiService {
   removeProduct(id: number): Observable<any>
   {
     return this.httpClient.delete(environment.API + `/api/products/${id}`);
+  }
+
+  updateProduct(command: UpdateProductCommand): Observable<any>
+  {
+    return this.httpClient.put(environment.API + '/api/products', command);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { SmoothAppearance } from 'src/app/shared/animations/animations';
 import { FullProduct } from '../models/fullProduct';
 import { NewProductCommand } from '../models/newProductCommand';
 import { NewProduct } from '../state/products-actions';
@@ -8,7 +9,8 @@ import { NewProduct } from '../state/products-actions';
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
-  styleUrls: ['./new-product.component.scss']
+  styleUrls: ['./new-product.component.scss'],
+  animations: [SmoothAppearance]
 })
 export class NewProductComponent implements OnInit {
 
