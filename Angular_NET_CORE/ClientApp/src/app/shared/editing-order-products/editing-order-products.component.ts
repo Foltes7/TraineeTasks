@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-  selector: 'app-edititng-order-products',
-  templateUrl: './edititng-order-products.component.html',
-  styleUrls: ['./edititng-order-products.component.scss']
+  selector: 'app-editing-order-products',
+  templateUrl: './editing-order-products.component.html',
+  styleUrls: ['./editing-order-products.component.scss']
 })
 export class EdititngOrderProductsComponent implements OnInit {
 
