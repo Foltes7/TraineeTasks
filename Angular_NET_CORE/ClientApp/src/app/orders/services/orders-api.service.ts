@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FullOrder } from '../models/fullOrder';
+import { NewOrderCommand } from '../models/newOrderCommand';
 import { Order } from '../models/orders';
 import { Status } from '../models/status';
 
@@ -25,5 +26,10 @@ export class OrdersApiService {
   getById(id: number): Observable<FullOrder>
   {
     return this.httpClient.get<FullOrder>(environment.API + `/api/orders/${id}`);
+  }
+
+  createNew(command: NewOrderCommand): Observable<Order>
+  {
+    return this.httpClient.post<Order>(environment.API + `/api/orders`, command);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
@@ -21,7 +21,7 @@ import { OrdersStore } from '../state/orders-state';
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss']
 })
-export class OrderFormComponent implements OnInit, OnDestroy {
+export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
 
   destroy = new Subject<void>();
 
@@ -34,7 +34,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   cancelEvent = new EventEmitter<void>();
 
   @Output()
-  saveEvent = new EventEmitter<Order>();
+  saveEvent = new EventEmitter<FullOrder>();
 
   @Input()
   editable: boolean;
@@ -44,7 +44,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   public mainForm: FormGroup = new FormGroup({
     orderNumber: new FormControl(''),
     comment: new FormControl('', []),
-    cost: new FormControl('', [Validators.required, Validators.min(0)]),
+    cost: new FormControl('', [Validators.min(0)]),
     customer: new FormControl('', [Validators.required]),
     status: new FormControl('', [Validators.required]),
     date: new FormControl('',  [Validators.required]),
@@ -53,6 +53,11 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog,
               private store: Store) { }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.checkFormSelectedStatus();
+  }
 
   ngOnDestroy(): void {
     this.destroy.next();
@@ -77,11 +82,35 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     .subscribe(customers => {
       this.customers = customers;
     });
+
+    this.checkFormSelectedStatus();
+  }
+
+  checkFormSelectedStatus(): void
+  {
+    if (!this.editable)
+    {
+      this.status.disable();
+      this.customer.disable();
+    }else{
+      this.status.enable();
+      this.customer.enable();
+    }
   }
 
   get date(): AbstractControl
   {
     return this.mainForm.get('date');
+  }
+
+  get status(): AbstractControl
+  {
+    return this.mainForm.get('status');
+  }
+
+  get customer(): AbstractControl
+  {
+    return this.mainForm.get('customer');
   }
 
   cancelHandler(): void
@@ -91,7 +120,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
 
   saveForm(): void
   {
-    // this.saveEvent.emit(this.getProductFromForm());
+    this.saveEvent.emit(this.getOrderFromForm());
   }
 
   manageProducts(): void
@@ -103,6 +132,22 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     .subscribe((result: boolean) => {
       console.log('closed');
     });
+  }
+
+  getOrderFromForm(): FullOrder
+  {
+    const values = this.mainForm.value;
+
+    const obj: FullOrder = {
+      id: values.orderNumber,
+      cost: values.cost,
+      orderStatusId: values.status,
+      description: values.comment,
+      createdAt: values.date,
+      customerId: values.customer,
+      products: this.fullOrder?.products
+    };
+    return obj;
   }
 
 }

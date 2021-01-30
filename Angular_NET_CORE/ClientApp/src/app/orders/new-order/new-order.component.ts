@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order } from '../models/orders';
+import { FullOrder } from '../models/fullOrder';
 
 @Component({
   selector: 'app-new-order',
@@ -19,7 +19,7 @@ export class NewOrderComponent implements OnInit {
     this.router.navigate(['orders']);
   }
 
-  saveFormHandler(order: Order): void
+  saveFormHandler(order: FullOrder): void
   {
     console.log(order);
   }

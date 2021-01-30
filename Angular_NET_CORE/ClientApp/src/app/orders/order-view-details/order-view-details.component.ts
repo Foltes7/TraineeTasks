@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Order } from '../models/orders';
+import { FullOrder } from '../models/fullOrder';
 
 @Component({
   selector: 'app-order-view-details',
@@ -25,7 +25,7 @@ export class OrderViewDetailsComponent implements OnInit {
     this.editable = false;
   }
 
-  saveFormHandler(order: Order): void
+  saveFormHandler(order: FullOrder): void
   {
     console.log(order);
   }

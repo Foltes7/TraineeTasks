@@ -15,7 +15,7 @@
 
     <mat-form-field>
         <mat-label>Select Customer</mat-label>
-        <mat-select [disabled]="!editable"  name="customer" formControlName="customer">
+        <mat-select   name="customer" formControlName="customer">
             <mat-option *ngFor="let customer of customers" [value]="customer.id">
             {{customer.name}}
             </mat-option>
@@ -24,7 +24,7 @@
 
     <mat-form-field>
         <mat-label>Select Status</mat-label>
-        <mat-select [disabled]="!editable" name="status" formControlName="status">
+        <mat-select  name="status" formControlName="status">
             <mat-option *ngFor="let status of statuses" [value]="status.id">
                 {{status.status}}
             </mat-option>

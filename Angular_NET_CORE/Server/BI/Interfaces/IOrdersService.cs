@@ -1,4 +1,5 @@
-﻿using Common.DTO.Orders;
+﻿using Common.Commands;
+using Common.DTO.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace BI.Interfaces
     {
         Task<IEnumerable<OrderDTO>> GetTableOrders();
         Task<FullOrderDTO> GetFullOrder(int id);
+        Task<OrderDTO> CreateNewOrder(NewOrderCommand command);
+        Task UpdateOrder(UpdateOrderCommand command);
     }
 }

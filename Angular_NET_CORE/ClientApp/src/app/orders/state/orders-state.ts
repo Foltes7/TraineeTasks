@@ -4,7 +4,7 @@ import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
 import { Status } from '../models/status';
 import { OrdersApiService } from '../services/orders-api.service';
-import { LoadFullOrder, LoadOrders, LoadStatuses } from './orders-actions';
+import { LoadFullOrder, LoadOrders, LoadStatuses, NewOrder } from './orders-actions';
 
 
 
@@ -66,6 +66,15 @@ export class OrdersStore {
         const fullOrder = await this.ordersService.getById(id).toPromise();
         patchState({
             fullOrder
+        });
+    }
+
+    @Action(NewOrder)
+    async newOrder({patchState, getState}: StateContext<OrdersState>, {command}: NewOrder): Promise<void>
+    {
+        const order = await this.ordersService.createNew(command).toPromise();
+        patchState({
+            orders: [order, ...getState().orders]
         });
     }
 }

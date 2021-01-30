@@ -1,4 +1,5 @@
 ﻿using BI.Interfaces;
+using Common.Commands;
 using Common.DB_MODELS;
 using Common.DTO.Orders;
 using Common.DTO.Status;
@@ -40,5 +41,20 @@ namespace Server.Controllers
         {
             return await ordersService.GetFullOrder(id);
         }
+
+
+        [HttpPost]
+        public async Task<OrderDTO> CreateNewOrder(NewOrderCommand command)
+        {
+            return await ordersService.CreateNewOrder(command);
+        }
+
+        [HttpPut]
+        public async Task UpdateOrder(UpdateOrderCommand command)
+        {
+            await ordersService.UpdateOrder(command);
+        }
+
+
     }
 }
