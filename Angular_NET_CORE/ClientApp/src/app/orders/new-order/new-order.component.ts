@@ -1,6 +1,10 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { FullOrder } from '../models/fullOrder';
+import { NewOrderCommand } from '../models/newOrderCommand';
+import { NewOrder } from '../state/orders-actions';
 
 @Component({
   selector: 'app-new-order',
@@ -9,7 +13,8 @@ import { FullOrder } from '../models/fullOrder';
 })
 export class NewOrderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private store: Store) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +26,14 @@ export class NewOrderComponent implements OnInit {
 
   saveFormHandler(order: FullOrder): void
   {
-    console.log(order);
+    const obj: NewOrderCommand = {
+      customerId: order.customerId,
+      productIds: order.products.map(x => x.id),
+      orderStatusId: order.orderStatusId,
+      description: order.description
+    };
+    this.store.dispatch(new NewOrder(obj)).toPromise()
+    .then(x => this.router.navigate(['orders']));
   }
 
 }

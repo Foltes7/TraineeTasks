@@ -99,6 +99,11 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  get cost(): AbstractControl
+  {
+    return this.mainForm.get('cost');
+  }
+
   get date(): AbstractControl
   {
     return this.mainForm.get('date');
@@ -137,8 +142,14 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
       if (products)
       {
         this.products = products;
+        this.cost.setValue(this.getCost(this.products));
       }
     });
+  }
+
+  getCost(products: Product[])
+  {
+    return this.products.map(x => x.price).reduce((cv, pv) => cv + pv);
   }
 
   getOrderFromForm(): FullOrder
@@ -152,7 +163,7 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
       description: values.comment,
       createdAt: values.date,
       customerId: values.customer,
-      products: this.fullOrder?.products
+      products: this.products
     };
     return obj;
   }

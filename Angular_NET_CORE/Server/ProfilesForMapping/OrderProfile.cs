@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Commands;
 using Common.DB_MODELS;
 using Common.DTO.Orders;
 using System;
@@ -13,6 +14,7 @@ namespace ProfilesForMapping
         {
             CreateMap<Order, FullOrderDTO>();
             CreateMap<Order, OrderDTO>();
+            CreateMap<NewOrderCommand, Order>();
         }
     }
 }
