@@ -16,10 +16,12 @@ namespace BI.Services
     {
         private readonly IMapper mapper;
         private readonly IOrderRepository orderRepository;
-        public OrdersService(IOrderRepository orderRepository, IMapper mapper)
+        private readonly IProductRepository productRepository; 
+        public OrdersService(IOrderRepository orderRepository, IMapper mapper, IProductRepository productRepository)
         {
             this.orderRepository = orderRepository;
             this.mapper = mapper;
+            this.productRepository = productRepository;
         }
 
         public async Task<FullOrderDTO> GetFullOrder(int id)
@@ -38,9 +40,10 @@ namespace BI.Services
         {
             var order = mapper.Map<Order>(command);
             order.CreatedAt = DateTime.Now;
-            order.Products = command.ProductIds.Select(x => new Product() { Id = x }).ToList();
+            var products = await this.productRepository.GetWhere(x => command.ProductIds.Any(z => z == x.Id));
+            order.Products = products.ToList();
             await orderRepository.Add(order);
-            var newOrder = await this.orderRepository.GetFullOrder(order.Id);
+            var newOrder = await orderRepository.GetFullOrder(order.Id);
             return mapper.Map<OrderDTO>(newOrder);
         }
 

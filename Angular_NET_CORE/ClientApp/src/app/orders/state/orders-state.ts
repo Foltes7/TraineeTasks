@@ -33,6 +33,12 @@ export class OrdersStore {
     }
 
     @Selector()
+    static getFullOrder(state: OrdersState): FullOrder
+    {
+        return state.fullOrder;
+    }
+
+    @Selector()
     static getStatuses(state: OrdersState): Status[]
     {
         return state.statuses;

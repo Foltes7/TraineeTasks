@@ -39,7 +39,9 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   editable: boolean;
 
+  @Input()
   fullOrder: FullOrder;
+
   products: Product[] = [];
 
   public mainForm: FormGroup = new FormGroup({
