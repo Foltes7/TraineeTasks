@@ -4,7 +4,7 @@ import { FullOrder } from '../models/fullOrder';
 import { Order } from '../models/orders';
 import { Status } from '../models/status';
 import { OrdersApiService } from '../services/orders-api.service';
-import { LoadFullOrder, LoadOrders, LoadStatuses, NewOrder } from './orders-actions';
+import { LoadFullOrder, LoadOrders, LoadStatuses, NewOrder, UpdateOrder } from './orders-actions';
 
 
 
@@ -82,5 +82,11 @@ export class OrdersStore {
         patchState({
             orders: [order, ...getState().orders]
         });
+    }
+
+    @Action(UpdateOrder)
+    async updateOrder({patchState, getState}: StateContext<OrdersState>, {command}: UpdateOrder): Promise<void>
+    {
+        await this.ordersService.update(command).toPromise();
     }
 }

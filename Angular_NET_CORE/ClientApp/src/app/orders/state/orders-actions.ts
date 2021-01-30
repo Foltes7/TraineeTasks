@@ -1,4 +1,5 @@
 import { NewOrderCommand } from '../models/newOrderCommand';
+import { UpdateOrderCommand } from '../models/updateOrderCommand';
 
 export class LoadStatuses {
     static type = '[Orders] Load Statuses';
@@ -18,4 +19,11 @@ export class LoadFullOrder {
 export class NewOrder {
     static type = '[Orders] New';
     constructor(public command: NewOrderCommand) {}
+}
+
+export class UpdateOrder{
+    static type = '[Orders] Update';
+
+    constructor(public command: UpdateOrderCommand) {
+    }
 }

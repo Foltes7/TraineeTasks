@@ -44,7 +44,7 @@ namespace BI.Services
             {
                 var userMapped = mapper.Map<CustomerTableItem>(user);
                 userMapped.OrdersCount = user.Orders.Count;
-                userMapped.TotalCost = user.Orders.Sum(order => order.Cost);
+                userMapped.TotalCost = user.Orders.SelectMany(x => x.Products).Sum(x => x.Price);
                 return userMapped;
             });
             return usersMapped;

@@ -27,13 +27,22 @@ namespace BI.Services
         public async Task<FullOrderDTO> GetFullOrder(int id)
         {
             var order = await this.orderRepository.GetFullOrder(id);
-            return mapper.Map<FullOrderDTO>(order);
+            var resultOrder = mapper.Map<FullOrderDTO>(order);
+            resultOrder.Cost = order.Products.Sum(x => x.Price);
+            return resultOrder;
         }
 
         public async Task<IEnumerable<OrderDTO>> GetTableOrders()
         {
+            var resutList = new List<OrderDTO>();
             var orders = await this.orderRepository.GetAllOrders();
-            return mapper.Map<IEnumerable<OrderDTO>>(orders);
+            foreach(var order in orders)
+            {
+                var mapOrder = mapper.Map<OrderDTO>(order);
+                mapOrder.Cost = order.Products.Sum(x => x.Price);
+                resutList.Add(mapOrder);
+            }
+            return resutList;
         }
 
         public async Task<OrderDTO> CreateNewOrder(NewOrderCommand command)
@@ -49,18 +58,19 @@ namespace BI.Services
 
         public async Task UpdateOrder(UpdateOrderCommand command)
         {
-            /*
-            var entity = await orderRepository.GetById(command.Id);
+            var entity = await orderRepository.GetFullOrder(command.Id);
             if (entity != null)
-            {
-                entity.Name = command.Name;
-                entity.ProductCategoryId = command.ProductCategoryId;
-                entity.ProductSizeId = command.ProductSizeId;
+            {;
+                entity.CustomerId = command.CustomerId;
                 entity.Description = command.Description;
-                entity.Price = command.Price;
-                entity.Quantity = command.Quantity;
-                await productRepository.Update(entity);
-            }*/
+                entity.OrderStatusId = command.OrderStatusId;
+
+                var products = await this.productRepository.GetWhere(x => command.ProductIds.Any(z => z == x.Id));
+                entity.Products = products.ToList();
+
+                await orderRepository.Update(entity);
+            }
         }
+
     }
 }

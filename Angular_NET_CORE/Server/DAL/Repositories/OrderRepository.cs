@@ -18,6 +18,7 @@ namespace DAL.Repositories
             return await this.context.Orders
                 .Include(x => x.Customer)
                 .Include(x => x.OrderStatus)
+                .Include(x => x.Products)
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
         }

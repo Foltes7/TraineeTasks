@@ -59,6 +59,21 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    if (this.fullOrder)
+    {
+      const date = new Date(this.fullOrder.createdAt).toISOString().split('T')[0];
+      this.mainForm.setValue({
+          orderNumber: this.fullOrder.id,
+          comment: this.fullOrder.description,
+          cost: this.fullOrder.cost,
+          customer: this.fullOrder.customerId,
+          status: this.fullOrder.orderStatusId,
+          date
+        });
+      this.products = this.fullOrder.products;
+    }
+
     this.checkFormSelectedStatus();
   }
 
@@ -131,8 +146,10 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
     this.saveEvent.emit(this.getOrderFromForm());
   }
 
-  manageProducts(): void
+  manageProducts($event: MouseEvent): void
   {
+    $event.preventDefault();
+
     const data: DialogData = {
       products: this.products,
     };
@@ -149,9 +166,9 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  getCost(products: Product[])
+  getCost(products: Product[]): number
   {
-    return this.products.map(x => x.price).reduce((cv, pv) => cv + pv);
+    return this.products.map(x => x.price)?.reduce((cv, pv) => cv + pv, 0);
   }
 
   getOrderFromForm(): FullOrder

@@ -11,7 +11,6 @@ namespace Common.DB_MODELS
         public DateTime CreatedAt { set; get; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public double Cost { set; get; }
         public string Description { set; get; }
         public int OrderStatusId { set; get; }
         public OrderStatus OrderStatus { set; get; }

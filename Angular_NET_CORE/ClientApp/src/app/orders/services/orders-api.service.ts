@@ -6,6 +6,7 @@ import { FullOrder } from '../models/fullOrder';
 import { NewOrderCommand } from '../models/newOrderCommand';
 import { Order } from '../models/orders';
 import { Status } from '../models/status';
+import { UpdateOrderCommand } from '../models/updateOrderCommand';
 
 @Injectable()
 export class OrdersApiService {
@@ -32,4 +33,10 @@ export class OrdersApiService {
   {
     return this.httpClient.post<Order>(environment.API + `/api/orders`, command);
   }
+
+  update(command: UpdateOrderCommand): Observable<any>
+  {
+    return this.httpClient.put(environment.API + `/api/orders`, command);
+  }
+
 }

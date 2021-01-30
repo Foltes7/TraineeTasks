@@ -5,7 +5,9 @@ import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SmoothAppearance } from 'src/app/shared/animations/animations';
 import { FullOrder } from '../models/fullOrder';
-import { LoadFullOrder } from '../state/orders-actions';
+import { NewOrderCommand } from '../models/newOrderCommand';
+import { UpdateOrderCommand } from '../models/updateOrderCommand';
+import { LoadFullOrder, UpdateOrder } from '../state/orders-actions';
 import { OrdersStore } from '../state/orders-state';
 
 @Component({
@@ -63,7 +65,15 @@ export class OrderViewDetailsComponent implements OnInit, OnDestroy {
 
   saveFormHandler(order: FullOrder): void
   {
-    console.log(order);
+    const command: UpdateOrderCommand = {
+      id: order.id,
+      customerId: order.customerId,
+      orderStatusId: order.orderStatusId,
+      description: order.description,
+      productIds: order.products.map(x => x.id)
+    };
+    this.store.dispatch(new UpdateOrder(command)).toPromise()
+    .then(x => this.router.navigate(['orders']));
   }
 
 }

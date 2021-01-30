@@ -40,7 +40,7 @@
     <div class="products-section">
         <div class="title">
             <p>Order products</p>
-            <button mat-stroked-button color="primary" (click)="manageProducts()">Manage products</button>
+            <button [disabled]="!editable" mat-stroked-button color="primary" (click)="manageProducts($event)">Manage products</button>
         </div>
         <table mat-table [dataSource]="products" class="mat-elevation-z8">
 
