@@ -24,6 +24,11 @@ export class ProductsApiService {
     return this.httpClient.get<Category[]>(environment.API + '/api/products/categories');
   }
 
+  getProductsExceptOrderId(id: number): Observable<Product[]>
+  {
+    return this.httpClient.get<Product[]>(environment.API + `/api/products/order/non/${id}`);
+  }
+
   getAll(): Observable<Product[]>
   {
     return this.httpClient.get<Product[]>(environment.API + '/api/products');

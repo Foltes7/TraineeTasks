@@ -12,6 +12,7 @@ namespace DAL.Repositories
     public interface IProductRepository : IRepository<Product>
     {
         Task<IEnumerable<Product>> GetAllProducts();
+        Task<IEnumerable<Product>> GetProductsExceptOrderId(int id);
         Task<Product> GetFullProduct(int id);
     }
 }

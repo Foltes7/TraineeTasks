@@ -67,5 +67,12 @@ namespace BI.Services
                 await productRepository.Update(entity);
             }
         }
+
+        public async Task<IEnumerable<ProductDTO>> GetProductsExceptOrderId(int id)
+        {
+            var products = await productRepository.GetProductsExceptOrderId(id);
+            var mappedProducts = mapper.Map<IEnumerable<ProductDTO>>(products);
+            return mappedProducts;
+        }
     }
 }

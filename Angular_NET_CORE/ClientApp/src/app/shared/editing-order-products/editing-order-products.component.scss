@@ -1,9 +1,37 @@
 .wrapper{
-    min-height: 200px;
+    min-height: 300px;
     max-height: 800px;
-    table{
-        width: 800px;
-        border: 1px solid #f2f2f2;
-        box-shadow: none;
+    .content{
+        table{
+            width: 800px;
+            border: 1px solid #f2f2f2;
+            box-shadow: none;
+            tr{
+                cursor: pointer;
+                &:hover{
+                    background-color: #f2f2f2;
+                }
+            }
+        }
+        .empty-placehodler{
+            height: 250px;
+            width: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flex-right{
+            justify-content: flex-end;
+        }
     }
+    .spinner{
+        width: 500px;
+        display: flex;
+        justify-content: center;
+        margin-top: 150px;
+    }
+}
+
+.is-selected{
+    background-color: #f2f2f2;
 }

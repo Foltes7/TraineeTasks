@@ -54,6 +54,12 @@ namespace Server.Controllers
             return await productsService.GetFullProduct(id);
         }
 
+        [HttpGet("order/non/{id}")]
+        public async Task<IEnumerable<ProductDTO>> GetProductsExceptOrderId(int id)
+        {
+            return await productsService.GetProductsExceptOrderId(id);
+        }
+
         [HttpPost]
         public async Task<ProductDTO> CreateNewProduct(NewProductCommand command)
         {

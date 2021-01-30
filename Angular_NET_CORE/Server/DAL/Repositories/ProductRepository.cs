@@ -29,5 +29,16 @@ namespace DAL.Repositories
                 .Include(x => x.ProductCategory)
                 .Include(x => x.ProductSize).FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<IEnumerable<Product>> GetProductsExceptOrderId(int id)
+        {
+            return await this.context.Products
+                        .Include(x => x.ProductCategory)
+                        .Include(x => x.ProductSize)
+                        .Include(x => x.Orders)
+                        .Where(x => !x.Orders.Where(order => order.Id == id).Any())
+                        .OrderByDescending(x => x.CreatedAt)
+                        .ToListAsync();
+        }
     }
 }

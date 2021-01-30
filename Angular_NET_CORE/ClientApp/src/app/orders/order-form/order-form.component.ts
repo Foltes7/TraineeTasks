@@ -7,7 +7,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Customer } from 'src/app/customers/models/customer';
 import { LoadCustomers } from 'src/app/customers/state/customers-actions';
 import { CustomersStore } from 'src/app/customers/state/customers-state';
-import { EdititngOrderProductsComponent } from 'src/app/shared/editing-order-products/editing-order-products.component';
+import { Product } from 'src/app/products/models/product';
+import { DialogData, EdititngOrderProductsComponent } from 'src/app/shared/editing-order-products/editing-order-products.component';
 import { FullOrder } from '../models/fullOrder';
 import { Status } from '../models/status';
 import { LoadStatuses } from '../state/orders-actions';
@@ -39,6 +40,7 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
   editable: boolean;
 
   fullOrder: FullOrder;
+  products: Product[] = [];
 
   public mainForm: FormGroup = new FormGroup({
     orderNumber: new FormControl(''),
@@ -124,12 +126,18 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
 
   manageProducts(): void
   {
-    const dialogRef = this.dialog.open(EdititngOrderProductsComponent, {});
+    const data: DialogData = {
+      products: this.products,
+    };
+    const dialogRef = this.dialog.open(EdititngOrderProductsComponent, { data });
 
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy))
-    .subscribe((result: boolean) => {
-      console.log('closed');
+    .subscribe((products: Product[]) => {
+      if (products)
+      {
+        this.products = products;
+      }
     });
   }
 

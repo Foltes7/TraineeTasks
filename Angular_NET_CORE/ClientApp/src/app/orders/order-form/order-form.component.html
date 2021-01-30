@@ -42,7 +42,7 @@
             <p>Order products</p>
             <button mat-stroked-button color="primary" (click)="manageProducts()">Manage products</button>
         </div>
-        <table mat-table [dataSource]="fullOrder?.products" class="mat-elevation-z8">
+        <table mat-table [dataSource]="products" class="mat-elevation-z8">
 
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Product Id</th>

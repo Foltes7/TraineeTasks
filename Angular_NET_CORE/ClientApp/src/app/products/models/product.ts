@@ -9,3 +9,7 @@ export interface Product{
     quantity: number;
     price: number;
 }
+
+export interface ProductSelect extends Product{
+    isSelected: boolean;
+}
