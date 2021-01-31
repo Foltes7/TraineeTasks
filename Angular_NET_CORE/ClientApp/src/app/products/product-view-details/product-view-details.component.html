@@ -1,9 +1,6 @@
 <div class="content">
     <div class="content-container">
-        <div class="sub-header">
-            <p class="title">View Product</p>
-            <button *ngIf="!editable" mat-stroked-button color="primary" (click)="setEditableTrue()">Edit</button>
-        </div>
+        <app-sub-header [buttonDisabled]="editable" [buttonName]="'Edit'" [title]="'View Product'" (clickHandler)="setEditableTrue()"></app-sub-header>
         <app-product-form [@smoothAppearance] *ngIf="loaded" [fullProduct]="fullProduct" (cancelEvent)="cancelHandler()"
             (saveEvent)="saveFormHandler($event)" [editable]="editable"></app-product-form>
         <div *ngIf="!loaded" class="spinner">

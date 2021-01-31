@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +24,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   orders: Order[] = [];
 
-  constructor(private store: Store) { }
+  constructor(private store: Store,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.store.dispatch(LoadOrders);
@@ -38,6 +40,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
+  }
+
+  newOrder(): void
+  {
+    this.router.navigate(['/orders/new']);
   }
 
 }

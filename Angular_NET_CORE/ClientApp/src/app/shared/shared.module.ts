@@ -7,11 +7,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmationDeleteWindowComponent } from './confirmation-delete-window/confirmation-delete-window.component';
-import { EdititngOrderProductsComponent } from './editing-order-products/editing-order-products.component';
+import { EditingOrderProductsComponent } from './editing-order-products/editing-order-products.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SubHeaderComponent } from './sub-header/sub-header.component';
 
 @NgModule({
-  declarations: [ConfirmationDeleteWindowComponent, EdititngOrderProductsComponent],
+  declarations: [ConfirmationDeleteWindowComponent, EditingOrderProductsComponent, SubHeaderComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -29,6 +30,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatSelectModule,
     MatDialogModule,
-    MatProgressSpinnerModule]
+    MatProgressSpinnerModule,
+    SubHeaderComponent]
 })
 export class SharedModule { }

@@ -8,6 +8,7 @@ import { Store } from '@ngxs/store';
 import { ProductsStore } from '../state/products-state';
 import { LoadProducts, RemoveProduct } from '../state/products-actions';
 import { SmoothAppearance } from 'src/app/shared/animations/animations';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
 
   constructor(public dialog: MatDialog,
-              private store: Store) { }
+              private store: Store,
+              private router: Router) { }
 
 
   ngOnDestroy(): void {
@@ -55,6 +57,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         this.store.dispatch(new RemoveProduct(id));
       }
     });
+  }
+
+  newProduct(): void
+  {
+    this.router.navigate(['/products/new']);
   }
 
 }

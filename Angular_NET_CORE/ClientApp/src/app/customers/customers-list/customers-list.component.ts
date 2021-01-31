@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +24,8 @@ export class CustomersListComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['name', 'address', 'cost', 'count'];
 
-  constructor(private store: Store) { }
+  constructor(private store: Store,
+              private router: Router) { }
 
   ngOnDestroy(): void {
     this.destroy.next();
@@ -38,6 +40,11 @@ export class CustomersListComponent implements OnInit, OnDestroy {
       this.loaded = true;
     });
     this.store.dispatch(LoadCustomers);
+  }
+
+  newCustomer(): void
+  {
+    this.router.navigate(['/customers/new']);
   }
 
 }

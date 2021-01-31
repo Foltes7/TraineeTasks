@@ -76,4 +76,5 @@ export class ProductViewDetailsComponent implements OnInit, OnDestroy {
   }
 
 
+
 }

@@ -8,7 +8,7 @@ import { Customer } from 'src/app/customers/models/customer';
 import { LoadCustomers } from 'src/app/customers/state/customers-actions';
 import { CustomersStore } from 'src/app/customers/state/customers-state';
 import { Product } from 'src/app/products/models/product';
-import { DialogData, EdititngOrderProductsComponent } from 'src/app/shared/editing-order-products/editing-order-products.component';
+import { DialogData, EditingOrderProductsComponent } from 'src/app/shared/editing-order-products/editing-order-products.component';
 import { FullOrder } from '../models/fullOrder';
 import { Status } from '../models/status';
 import { LoadStatuses } from '../state/orders-actions';
@@ -153,7 +153,7 @@ export class OrderFormComponent implements OnInit, OnDestroy, OnChanges {
     const data: DialogData = {
       products: this.products,
     };
-    const dialogRef = this.dialog.open(EdititngOrderProductsComponent, { data });
+    const dialogRef = this.dialog.open(EditingOrderProductsComponent, { data });
 
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy))

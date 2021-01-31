@@ -1,8 +1,6 @@
 <div class="content">
     <div class="content-container">
-        <div class="sub-header">
-            <p class="title">New Product</p>
-        </div>
+        <app-sub-header [title]="'New Product'" [buttonDisabled]="true"></app-sub-header>
         <app-product-form [@smoothAppearance] (cancelEvent)="cancelHandler()" (saveEvent)="saveFormHandler($event)" [editable]="true"></app-product-form>
     </div>
 </div>

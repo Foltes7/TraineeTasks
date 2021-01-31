@@ -1,8 +1,6 @@
 <div class="content">
     <div class="content-container">
-        <div class="sub-header">
-            <p class="title">New Customer</p>
-        </div>
+        <app-sub-header [title]="'New Customer'" [buttonDisabled]="true"></app-sub-header>
         <form [formGroup]="mainForm" class="form">
             <mat-form-field>
                 <mat-label>Created Date</mat-label>

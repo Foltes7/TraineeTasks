@@ -1,0 +1,11 @@
+.sub-header{
+    height: 36px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title{
+        font-size: 18px;
+        font-weight: bold;
+    }
+}

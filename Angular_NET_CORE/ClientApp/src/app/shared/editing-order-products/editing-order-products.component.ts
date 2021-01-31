@@ -14,7 +14,7 @@ export interface DialogData {
   templateUrl: './editing-order-products.component.html',
   styleUrls: ['./editing-order-products.component.scss']
 })
-export class EdititngOrderProductsComponent implements OnInit, OnDestroy {
+export class EditingOrderProductsComponent implements OnInit, OnDestroy {
 
   loaded = false;
   destroy = new Subject<void>();
@@ -23,7 +23,7 @@ export class EdititngOrderProductsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['id', 'name', 'category', 'size', 'quantity', 'price'];
 
   constructor(private productsService: ProductsApiService,
-              public dialogRef: MatDialogRef<EdititngOrderProductsComponent>,
+              public dialogRef: MatDialogRef<EditingOrderProductsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
 

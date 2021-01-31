@@ -1,9 +1,6 @@
 <div class="content">
   <div class="content-container">
-    <div class="sub-header">
-      <p class="title">Customers</p>
-      <button mat-stroked-button color="primary" routerLink="new">New Customer</button>
-    </div>
+    <app-sub-header [buttonName]="'New Customer'" [title]="'Customers'" (clickHandler)="newCustomer()"></app-sub-header>
     <table [@smoothAppearance] *ngIf="loaded" mat-table [dataSource]="customers" class="mat-elevation-z8">
 
       <ng-container matColumnDef="name">
