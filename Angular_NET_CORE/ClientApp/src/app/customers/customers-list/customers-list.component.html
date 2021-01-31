@@ -1,7 +1,7 @@
 <div class="content">
   <div class="content-container">
     <app-sub-header [buttonName]="'New Customer'" [title]="'Customers'" (clickHandler)="newCustomer()"></app-sub-header>
-    <table [@smoothAppearance] *ngIf="loaded" mat-table [dataSource]="customers" class="mat-elevation-z8">
+    <table [@smoothAppearance] *ngIf="loaded && customers?.length !== 0" mat-table [dataSource]="customers" class="mat-elevation-z8">
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Customer Name</th>
@@ -29,5 +29,6 @@
     <div *ngIf="!loaded" class="spinner">
       <mat-spinner></mat-spinner>
     </div>
+    <app-empty-placeholder *ngIf="customers?.length === 0"></app-empty-placeholder>
   </div>
 </div>

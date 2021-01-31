@@ -36,8 +36,8 @@ export class ProductFormComponent implements OnInit, OnChanges, OnDestroy {
 
   public mainForm: FormGroup = new FormGroup({
     productNumber: new FormControl(''),
-    productName: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45) ]),
-    description: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45) ]),
+    productName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(45) ]),
+    description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(45) ]),
     quantity: new FormControl('', [Validators.required, Validators.min(0)]),
     price: new FormControl('', [Validators.required, Validators.min(0) ]),
     productType: new FormControl('', [Validators.required]),

@@ -13,8 +13,8 @@ export class NewCustomerComponent implements OnInit {
 
   public mainForm: FormGroup = new FormGroup({
     date: new FormControl('',  [Validators.required]),
-    name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45) ]),
-    address: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(45) ]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(45) ]),
+    address: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(45) ]),
   });
 
   constructor(private router: Router,

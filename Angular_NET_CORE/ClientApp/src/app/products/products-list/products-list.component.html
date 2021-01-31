@@ -1,7 +1,7 @@
 <div class="content">
     <div class="content-container">
         <app-sub-header [buttonName]="'New Product'" [title]="'Products'" (clickHandler)="newProduct()"></app-sub-header>
-        <table *ngIf="loaded" [@smoothAppearance] mat-table [dataSource]="products" class="mat-elevation-z8">
+        <table *ngIf="loaded && products?.length !== 0" [@smoothAppearance] mat-table [dataSource]="products" class="mat-elevation-z8">
 
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Product Id</th>
@@ -48,5 +48,6 @@
         <div *ngIf="!loaded" class="spinner">
             <mat-spinner></mat-spinner>
         </div>
+        <app-empty-placeholder *ngIf="products?.length === 0"></app-empty-placeholder>
     </div>
 </div>

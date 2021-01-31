@@ -11,7 +11,7 @@
                 <mat-label>Customer Name</mat-label>
                 <input matInput placeholder="Name" name="name" formControlName="name">
                 <mat-error *ngIf="name && name.errors?.minlength">
-                    Min length 4
+                    Min length 3
                 </mat-error>
                 <mat-error *ngIf="name && name.errors?.maxlength">
                     Max length 45
@@ -22,7 +22,7 @@
                 <mat-label>Address</mat-label>
                 <textarea matInput placeholder="Address" name="address" formControlName="address"></textarea>
                 <mat-error *ngIf="address && address.errors?.minlength">
-                    Min length 4
+                    Min length 3
                 </mat-error>
                 <mat-error *ngIf="address && address.errors?.maxlength">
                     Max length 45

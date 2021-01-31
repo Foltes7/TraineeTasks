@@ -10,9 +10,10 @@ import { ConfirmationDeleteWindowComponent } from './confirmation-delete-window/
 import { EditingOrderProductsComponent } from './editing-order-products/editing-order-products.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SubHeaderComponent } from './sub-header/sub-header.component';
+import { EmptyPlaceholderComponent } from './empty-placeholder/empty-placeholder.component';
 
 @NgModule({
-  declarations: [ConfirmationDeleteWindowComponent, EditingOrderProductsComponent, SubHeaderComponent],
+  declarations: [ConfirmationDeleteWindowComponent, EditingOrderProductsComponent, SubHeaderComponent, EmptyPlaceholderComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -31,6 +32,7 @@ import { SubHeaderComponent } from './sub-header/sub-header.component';
     MatSelectModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    SubHeaderComponent]
+    SubHeaderComponent,
+    EmptyPlaceholderComponent]
 })
 export class SharedModule { }

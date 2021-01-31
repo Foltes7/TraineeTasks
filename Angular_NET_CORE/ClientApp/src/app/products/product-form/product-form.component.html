@@ -16,7 +16,7 @@
         <mat-label>Product Name</mat-label>
         <input [readonly]="!editable" matInput placeholder="Product Name" name="productName" formControlName="productName">
         <mat-error *ngIf="productName && productName.errors?.minlength">
-            Min length 4
+            Min length 3
         </mat-error>
         <mat-error *ngIf="productName && productName.errors?.maxlength">
             Max length 45
@@ -62,7 +62,7 @@
         <mat-label>Description</mat-label>
         <textarea [readonly]="!editable" matInput placeholder="Description" name="description" formControlName="description"></textarea>
         <mat-error *ngIf="description && description.errors?.minlength">
-            Min length 4
+            Min length 3
         </mat-error>
         <mat-error *ngIf="description && description.errors?.maxlength">
             Max length 45
