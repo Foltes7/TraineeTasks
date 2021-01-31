@@ -15,4 +15,4 @@ $ npm run start
  - Download .NET 5.0 : https://dotnet.microsoft.com/download/dotnet/5.0
  - cd Server
  - do migration CLI: "dotnet ef database update" or Package Manager Console: "Update-Database"
- - Also, you can build project from visual studio 2017+
+ - Also, you can build project from visual studio 2019+
