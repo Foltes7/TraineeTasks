@@ -2,6 +2,13 @@
     min-height: 300px;
     max-height: 800px;
     .content{
+        
+        display: flex;
+        min-height: 300px;
+        max-height: 800px;
+        flex-direction: column;
+        justify-content: space-between;
+
         table{
             width: 800px;
             border: 1px solid #f2f2f2;
